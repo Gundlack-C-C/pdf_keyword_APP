@@ -1,0 +1,4 @@
+[submodule "PDF2TEXT"]
+	path = app/pdf2text
+	url = git@github.com:GundlackFelixDEV/pdf2text.git
+	branch = main
