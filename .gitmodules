@@ -2,3 +2,7 @@
 	path = app/pdf2text
 	url = git@github.com:GundlackFelixDEV/pdf2text.git
 	branch = main
+[submodule "Matchmaker"]
+	path = app/Matchmaker
+	url = git@github.com:GundlackFelixDEV/Matchmaker.git
+	branch = main
