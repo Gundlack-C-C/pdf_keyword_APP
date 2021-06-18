@@ -16,6 +16,9 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.add_url_rule(
     "/uploads/<name>", endpoint="download_file", build_only=True
 )
+app.add_url_rule(
+    "/info/<name>", endpoint="info_file", build_only=True
+)
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -44,9 +47,13 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return render_template('file_upload_info.html', download_url=url_for('download_file', name=filename), filename=filename)
+            return redirect(url_for('info_file', name=filename))
     
     return render_template('file_upload.html')
+
+@app.route('/info/<name>')
+def info_file(name):
+    return render_template('file_upload_info.html', download_url=url_for('download_file', name=name), filename=name)
 
 @app.route('/uploads/<name>')
 def download_file(name):
