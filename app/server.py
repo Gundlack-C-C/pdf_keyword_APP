@@ -5,6 +5,7 @@ import logging
 import argparse
 import os, sys
 from werkzeug.utils import secure_filename
+from pdf2text.app.PDFReader import pdf2text
 
 UPLOAD_FOLDER = './.upload/'
 ALLOWED_EXTENSIONS = {'pdf', 'txt'}
@@ -53,7 +54,8 @@ def upload_file():
 
 @app.route('/info/<name>')
 def info_file(name):
-    return render_template('file_upload_info.html', download_url=url_for('download_file', name=name), filename=name)
+    text = pdf2text(f"{app.config['UPLOAD_FOLDER']}{name}")
+    return render_template('file_upload_info.html', download_url=url_for('download_file', name=name), filename=name, text=text)
 
 @app.route('/uploads/<name>')
 def download_file(name):
