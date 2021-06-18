@@ -13,6 +13,18 @@
             "cwd": "${workspaceFolder}/app"
         },
         {
+            "name": "Server",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/app/server.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/app",
+            "args": [
+                "-l",
+                "./.test_out/server.log"
+            ]
+        }
+        {
             "name": "App",
             "type": "python",
             "request": "launch",
