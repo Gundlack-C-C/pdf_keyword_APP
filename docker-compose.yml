@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  pdf:
+    build: .
+    image: pdf2text/pdfservice
+    container_name: pdf-service
+    ports:
+      - 5001
+    links:
+      - "matchmaker:matchmaker"
+    command: python3 /usr/src/app/server.py
+  matchmaker:
+    build: ./app/Matchmaker/
+    image: pdf2text/matchmaker
+    container_name: match-service
+    ports:
+      - 5001
+    command: Server
