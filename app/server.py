@@ -14,22 +14,16 @@ app = Flask(__name__)
 CORS(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-app.add_url_rule(
-    "/uploads/<name>", endpoint="download_file", build_only=True
-)
-app.add_url_rule(
-    "/info/<name>", endpoint="info_file", build_only=True
-)
+app.add_url_rule("/uploads/<name>", endpoint="download_file", build_only=True)
+app.add_url_rule("/info/<name>", endpoint="info_file", build_only=True)
 
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/hello/')
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('hello.html', name=name)
-
+@app.route('/', methods=['GET'])
+def home(name=None):
+    return render_template('index.html')
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
