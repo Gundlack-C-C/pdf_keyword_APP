@@ -1,19 +1,46 @@
 version: "3.9"
 
 services:
+  nginx:
+    image: nginx:1.13.7
+    container_name: proxy
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - frontend
+      - backend
+    links:
+      - pdf
+      - matchmaker
+    depends_on:
+      - pdf
+      - matchmaker
   pdf:
     build: .
     image: pdf2text/pdfservice
     container_name: pdf-service
     ports:
-      - 5001
+      - "5001:5001"
     links:
-      - "matchmaker:matchmaker"
+      - matchmaker
     command: python3 /usr/src/app/server.py
+    networks:
+      - backend
+    depends_on:
+      - matchmaker
+    volumes:
+      - ./app/.upload:/usr/src/app/.upload/
   matchmaker:
     build: ./app/Matchmaker/
     image: pdf2text/matchmaker
     container_name: match-service
     ports:
-      - 5001
+      - "5002:5001"
     command: Server
+    networks:
+      - backend
+networks:
+  frontend:
+  backend:

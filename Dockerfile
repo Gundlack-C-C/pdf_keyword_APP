@@ -9,5 +9,5 @@ COPY ./app/pdf2text/app/requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r /usr/src/app/requirements.txt
 
 COPY ./app /usr/src/app
-
+RUN mkdir -p /usr/src/app/.upload
 EXPOSE 5001
