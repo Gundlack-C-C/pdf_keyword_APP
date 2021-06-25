@@ -16,14 +16,17 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.add_url_rule("/uploads/<name>", endpoint="download_file", build_only=True)
 app.add_url_rule("/info/<name>", endpoint="info_file", build_only=True)
+app.add_url_rule("/upload", endpoint="upload", build_only=True)
+app.add_url_rule("/matchmaker/keywords", endpoint="analyse_text", build_only=True)
+app.add_url_rule("/matchmaker/random", endpoint="random", build_only=True)
 
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/', methods=['GET'])
-def home(name=None):
-    return render_template('index.html')
+def home():
+    return redirect(url_for('upload'))
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -49,7 +52,7 @@ def upload_file():
 @app.route('/info/<name>')
 def info_file(name):
     text = pdf2text(f"{app.config['UPLOAD_FOLDER']}{name}")
-    return render_template('file_upload_info.html', download_url=url_for('download_file', name=name), filename=name, text=text)
+    return render_template('file_upload_info.html', filename=name, text=text)
 
 @app.route('/uploads/<name>')
 def download_file(name):
