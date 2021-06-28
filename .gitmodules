@@ -6,3 +6,7 @@
 	path = app/Matchmaker
 	url = git@github.com:GundlackFelixDEV/Matchmaker.git
 	branch = main
+[submodule "NLP_Embedding"]
+	path = app/NLP_Embedding
+	url = git@github.com:GundlackFelixDEV/NLP_Embedding.git
+	branch = main
