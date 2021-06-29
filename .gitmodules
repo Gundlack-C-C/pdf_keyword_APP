@@ -5,8 +5,8 @@
 [submodule "Matchmaker"]
 	path = app/Matchmaker
 	url = git@github.com:GundlackFelixDEV/Matchmaker.git
-	branch = main
+	branch = develop
 [submodule "Wiki"]
 	path = app/Wiki
 	url = git@github.com:GundlackFelixDEV/Wiki.git
-	branch = main
+	branch = develop
