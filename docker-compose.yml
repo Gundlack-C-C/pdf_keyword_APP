@@ -17,19 +17,31 @@ services:
     depends_on:
       - pdf
       - matchmaker
+  app:
+    build: ./
+    image: pdf2text/app
+    container_name: app
+    ports: 
+      - "5000:5001"
+    links:
+      - matchmaker
+      - pdf
+    depends_on:
+      - pdf
+      - matchmaker
+    networks:
+      - backend
+      - frontend
+    command: python3 /usr/src/app/server.py
   pdf:
-    build: .
+    build: ./app/pdf2text/
     image: pdf2text/pdfservice
     container_name: pdf-service
     ports:
       - "5001:5001"
-    links:
-      - matchmaker
     command: python3 /usr/src/app/server.py
     networks:
       - backend
-    depends_on:
-      - matchmaker
     volumes:
       - ./app/.upload:/usr/src/app/.upload/
   matchmaker:
