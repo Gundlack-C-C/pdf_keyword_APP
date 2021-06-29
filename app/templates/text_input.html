@@ -64,13 +64,15 @@
             // Random Button Action
             //************
 
-            document.getElementById('btn_random').onchange = function () {
+            document.getElementById('btn_random').onclick = function () {
                 console.log("random")
                 var url = "{{ url_for('wiki_random') }}"
                 let request = new Request(url)
 
-                fetch(request).then((response) => {
-                    console.log(response);
+                fetch(request)
+                .then(response => response.json())
+                .then((text) => {
+                    text_area.value = text
                 })
             }
             //************
@@ -134,12 +136,14 @@
         <label for="corpus">PDF File:</label><br>
         <form id="pdf_form" action="">
             <input type=file name=file id="file">
-            <button id="pdf_download" style="display: none;">Show</button>
+            
         </form>
+        <button id="pdf_download" style="display: none;">Show</button>
+        <small><label>PDF Service Response</label></small>
         <div id="pdf_response_container" style="display: none;" >
         </div>
     </div>
-    <div id="section_random" style="display: none;">
+    <div id="section_wiki" style="display: none;">
         <label for="corpus">Text:</label><br>
         <button id="btn_random">Get Random Article</button>
     </div>
