@@ -21,14 +21,16 @@ services:
     build: ./
     image: pdf2text/app
     container_name: app
-    ports: 
+    ports:
       - "5000:5001"
     links:
       - matchmaker
       - pdf
+      - wiki
     depends_on:
       - pdf
       - matchmaker
+      - wiki
     networks:
       - backend
       - frontend
@@ -51,6 +53,15 @@ services:
     ports:
       - "5002:5001"
     command: Server
+    networks:
+      - backend
+  wiki:
+    build: ./app/Wiki/
+    image: pdf2text/wiki
+    container_name: wiki-service
+    ports:
+      - "5003:5001"
+    command: python3 /usr/src/app/server.py
     networks:
       - backend
 networks:
