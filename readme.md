@@ -1,4 +1,30 @@
-# APIs
+# Smart search
+
+## **How to deploy the application**
+
+First, pull source code
+
+```
+git pull https://github.com/GundlackFelixDEV/pdf_keyword_APP.git
+```
+
+Then, pull the source of all the submodules.
+To do so, move in the folder of the project and execute these commands :
+
+```
+git submodule init
+git submodule update
+```
+
+Finally, we can launch the project thanks to the docker-compose command :
+
+```
+docker-compose up -d
+```
+
+The application is available on **localhost**.
+
+## **APIs**
 
 ## Environments
 |API|Description|
