@@ -19,7 +19,7 @@ app.add_url_rule("/set_text", endpoint="text_set", build_only=True)
 app.add_url_rule("/analyze/", endpoint="text_analyse", build_only=True)
 app.add_url_rule("/wiki/random", endpoint="wiki_random", build_only=True)
 app.add_url_rule("/pdf/api/text", endpoint="pdf_upload", build_only=True)
-app.add_url_rule("/pdf/download/", endpoint="pdf_download", build_only=True)
+app.add_url_rule("/pdf/download", endpoint="pdf_download", build_only=True)
 
 @app.route('/', methods=['GET'])
 def home():
