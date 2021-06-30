@@ -8,16 +8,15 @@
     </style>
     <script>
         window.onload = function () {
-            let text_area = document.getElementById('corpus');
             let algo_target = JSON.parse('{{ algorithms | tojson() }}')
             //************
             // Input Options
             //************
-            let options = document.getElementById('algorithm_options')
-            let algo = options.value
+            let DOM_options = document.getElementById('algorithm_options')
+            let algo = DOM_options.value
             let url_algo = algo_target[algo][1]
-            options.onchange = function (event) {
-                algo = options.value;
+            DOM_options.onchange = function (event) {
+                algo = DOM_options.value;
 
                 let childs = Array.from(document.getElementById('input_option_container').children)
 
@@ -31,10 +30,31 @@
 
                 url_algo = algo_target[algo][1]
             }
-
+            let keywords = []
+            let DOM_results = document.getElementById('keywords_results')
             document.getElementById('form_analyse').onsubmit = function(event) {
                 console.log(this)
                 console.log(`Call - ${algo}: ${url_algo}`)
+
+                var xhr = new XMLHttpRequest()
+                xhr.open("POST", url_algo)
+                
+                xhr.onload = function(event) {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var res = JSON.parse(this.responseText);
+                        keywords = res['data']
+                        html = res['html']
+
+                        DOM_results.innerHTML = html
+                    } else {
+                        console.error("Ouch something went wrong")
+                        console.debug(event)
+                    }
+                }
+
+                var formData = new FormData(document.getElementById('form_analyse'))
+                xhr.send(formData)
+
                 event.preventDefault()
             }
         }
@@ -78,5 +98,5 @@
 
 <hr>
 <h2>Results</h2>
-<div>
+<div id="keywords_results">
 </div>
