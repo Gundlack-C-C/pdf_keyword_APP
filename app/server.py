@@ -45,7 +45,7 @@ def set_text(mode = None):
 if __name__ == '__main__':
 
     try:
-        LOG = "./.log/PDF_KEYWORD_SERVER.log"
+        LOG = "./.log/app.log"
 
         # Setup Argument Parser
         parser = argparse.ArgumentParser(description='Argument Parser')
