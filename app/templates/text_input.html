@@ -93,7 +93,7 @@
                     // Download Button
                     pdf_download_button.style.display = 'block'
                     pdf_download_button.onclick = function() {
-                        window.open(`${url_download}${res['id']}`, '_blank')
+                        window.open(`${url_download}/${res['id']}`, '_blank')
                     }
                 } else {
                     console.error("Ouch something went wrong")
