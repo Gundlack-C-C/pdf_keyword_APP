@@ -16,7 +16,7 @@ environments.append(('/wiki', 'Wiki Service'))
 
 app.add_url_rule("/playground", endpoint="playground", build_only=True)
 app.add_url_rule("/set_text", endpoint="text_set", build_only=True)
-app.add_url_rule("/analyzse_text/", endpoint="text_analyse", build_only=True)
+app.add_url_rule("/analyse_text", endpoint="text_analyse", build_only=True)
 app.add_url_rule("/wiki/random", endpoint="wiki_random", build_only=True)
 app.add_url_rule("/pdf/api/text", endpoint="pdf_upload", build_only=True)
 
@@ -26,13 +26,18 @@ def home():
 
 @app.route('/playground', methods=['GET', 'POST'])
 def playground():
-    settings = []
     text = request.form.get('input_text', '')
-    return render_template('playground.html', settings=settings, text=text)
+    return render_template('playground.html', text=text)
 
 @app.route('/analyse_text', methods=['GET', 'POST'])
 def analyse_text():
-    raise NotImplemented("... Not Implemented") 
+    settings = {}
+    text = request.form.get('corpus', '')
+
+    if 'settings' in request.form:
+        logging.debug(request.form)
+
+    return render_template('text_analyse.html', settings=settings, text=text)
 
 @app.route('/set_text', methods=['GET'])
 def set_text():

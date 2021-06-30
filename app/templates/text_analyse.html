@@ -1,0 +1,147 @@
+<!doctype html>
+<title>Text Input</title>
+<h1>Text Input</h1>
+
+<head>
+    <style>
+        pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+        .string { color: green; }
+        .number { color: darkorange; }
+        .boolean { color: blue; }
+        .null { color: magenta; }
+        .key { color: red; }
+
+        #pdf_response_container {
+            font-size: smaller;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;   
+        }
+    </style>
+    <script>
+        function syntaxHighlight(json) {
+            if (typeof json != 'string') {
+                json = JSON.stringify(json, undefined, 2);
+            }
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+        window.onload = function () {
+            let text_area = document.getElementById('corpus')
+            //************
+            // Input Options
+            //************
+            let options = document.getElementById('input_options')
+            options.onchange = function (event) {
+                let mode = options.value;
+
+                let childs = Array.from(document.getElementById('input_option_container').children)
+                console.log(childs)
+                // Hide All Sections
+                childs.forEach((element) => {
+                    element.style.display = "none"
+                });
+                // Show Selected Section
+                let target = document.getElementById(`section_${mode}`)
+                target.style.display = "block"
+            }
+
+            //************
+            // Random Button Action
+            //************
+
+            document.getElementById('btn_random').onclick = function () {
+                console.log("random")
+                var url = "{{ url_for('wiki_random') }}"
+                let request = new Request(url)
+
+                fetch(request)
+                .then(response => response.json())
+                .then((text) => {
+                    text_area.value = text
+                })
+            }
+            //************
+            // PDF Form Action
+            //************
+            let response_parent = document.getElementById('pdf_response')
+            let response_container = document.getElementById('pdf_response_container')
+            function on_pdf_request_ready(event) {
+                if (this.readyState == 4 && this.status == 200) {
+                    var res = JSON.parse(this.responseText);
+                    text_area.value = res['text']
+                    // Rest API Response
+                    let str = JSON.stringify(res, null, 4)
+                    response_container.innerHTML = ""
+                    response_container.appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(str)
+                    response_parent.style.display = 'block'
+                } else {
+                    console.error("Ouch something went wrong")
+                    console.debug(event)
+                }
+            }
+
+
+            document.getElementById('file').onchange = function () {
+                console.log("pdf")
+                var url = "{{ url_for('pdf_upload') }}"
+                console.log(url)
+
+                var xhr = new XMLHttpRequest()
+                xhr.open("POST", url)
+                xhr.onload = on_pdf_request_ready
+
+                var formData = new FormData(document.getElementById('pdf_form'))
+                xhr.send(formData)
+            }
+        }
+    </script>
+</head>
+
+<div>
+    <label for="corpus">Method:</label><br>
+
+    <select name="analyze_mode" id="input_options">
+        <option value="sklearn-tfidf">Sklearn - TFIDF</option>
+        <option value="sklearn-count">Sklearn - COUNT</option>
+    </select>
+</div>
+<hr>
+
+<form method="post" action="{{url_for('text_analyse')}}" id="text_input">
+    <div id="input_option_container">
+        <div id="section_sklearn-tfidf">
+            <label for="corpus">Sklearn TFIDF Parameter</label><br>
+        </div>
+        <div id="section_sklearn-count" style="display: none;">
+            <label for="corpus">Sklearn COUNT Parameter</label><br>
+        </div>
+    </div>
+    <div>
+        <textarea type=text name=corpus id=corpus rows=12 cols=50>{{ text }}</textarea>
+    </div>
+    <div>
+        <button type="submit" name="submit_param" value="submit_value" class="link-button">
+            Analyse
+        </button>
+    </div>
+</form>
+
+<hr>
+<h2>Results</h2>
+<div>
+</div>
