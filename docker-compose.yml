@@ -34,36 +34,54 @@ services:
     networks:
       - backend
       - frontend
-    command: python3 /usr/src/app/server.py
+    working_dir: /usr/src/app
+    command: python3 server.py
+    volumes:
+      - log-volume:/usr/src/app/.log
   pdf:
     build: ./app/pdf2text/
     image: pdf2text/pdfservice
     container_name: pdf-service
     ports:
       - "5001:5001"
-    command: python3 /usr/src/app/server.py
+    working_dir: /usr/src/app
+    command: python3 server.py
     networks:
       - backend
     volumes:
-      - ./app/.upload:/usr/src/app/.upload/
+      - log-volume:/usr/src/app/.log
   matchmaker:
     build: ./app/Matchmaker/
     image: pdf2text/matchmaker
     container_name: match-service
     ports:
       - "5002:5001"
+    working_dir: /usr/src/app
     command: Server
     networks:
       - backend
+    volumes:
+      - log-volume:/usr/src/app/.log
   wiki:
     build: ./app/Wiki/
     image: pdf2text/wiki
     container_name: wiki-service
     ports:
       - "5003:5001"
-    command: python3 /usr/src/app/server.py
+    working_dir: /usr/src/app
+    command: python3 server.py
     networks:
       - backend
+    volumes:
+      - log-volume:/usr/src/app/.log
 networks:
   frontend:
   backend:
+
+volumes:
+  log-volume:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./app/.log/
