@@ -19,6 +19,8 @@ app.add_url_rule("/set_text", endpoint="text_set", build_only=True)
 app.add_url_rule("/analyse_text", endpoint="text_analyse", build_only=True)
 app.add_url_rule("/wiki/random", endpoint="wiki_random", build_only=True)
 app.add_url_rule("/pdf/api/text", endpoint="pdf_upload", build_only=True)
+app.add_url_rule("/sklearn/keywords?algo=tfidf", endpoint="algo_sklearn_tfidf", build_only = True)
+app.add_url_rule("/sklearn/keywords?algo=count", endpoint="algo_sklearn_count", build_only = True)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -31,13 +33,16 @@ def playground():
 
 @app.route('/analyse_text', methods=['GET', 'POST'])
 def analyse_text():
-    settings = {}
+    param = {}
     text = request.form.get('corpus', '')
-
-    if 'settings' in request.form:
+    algorithms={ 
+        'sklearn-tfidf': ('Sklearn - TFIDF', url_for('algo_sklearn_tfidf')),
+        'sklearn-count': ('Sklearn - COUNT', url_for('algo_sklearn_count'))
+    }
+    if 'param' in request.form:
         logging.debug(request.form)
 
-    return render_template('text_analyse.html', settings=settings, text=text)
+    return render_template('text_analyse.html', param=param, text=text, algorithms=algorithms)
 
 @app.route('/set_text', methods=['GET'])
 def set_text():
