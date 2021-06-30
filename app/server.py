@@ -4,7 +4,7 @@ import requests
 import logging
 import argparse
 import os, sys
-
+from werkzeug.exceptions import NotImplemented
 
 app = Flask(__name__)
 CORS(app)
@@ -16,10 +16,9 @@ environments.append(('/wiki', 'Wiki Service'))
 
 app.add_url_rule("/playground", endpoint="playground", build_only=True)
 app.add_url_rule("/set_text", endpoint="text_set", build_only=True)
-app.add_url_rule("/analyze/", endpoint="text_analyse", build_only=True)
+app.add_url_rule("/analyzse_text/", endpoint="text_analyse", build_only=True)
 app.add_url_rule("/wiki/random", endpoint="wiki_random", build_only=True)
 app.add_url_rule("/pdf/api/text", endpoint="pdf_upload", build_only=True)
-app.add_url_rule("/pdf/download", endpoint="pdf_download", build_only=True)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -31,16 +30,13 @@ def playground():
     text = request.form.get('input_text', '')
     return render_template('playground.html', settings=settings, text=text)
 
-@app.route('/set_text', methods=['GET', 'POST'])
-def set_text(mode = None):
-    settings = []
-    text = ''
-    if mode=='random':
-        text = requests.get('/wiki/random')
-    elif mode=='pdf':
-        text = requests.post('/pdf/api/text')
+@app.route('/analyse_text', methods=['GET', 'POST'])
+def analyse_text():
+    raise NotImplemented("... Not Implemented") 
 
-    return render_template('text_input.html', settings=settings, text=text)
+@app.route('/set_text', methods=['GET'])
+def set_text():
+    return render_template('text_input.html', settings=[], text='')
 
 if __name__ == '__main__':
 
