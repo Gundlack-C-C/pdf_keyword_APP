@@ -19,8 +19,8 @@ app.add_url_rule("/set_text", endpoint="text_set", build_only=True)
 app.add_url_rule("/analyse_text", endpoint="text_analyse", build_only=True)
 app.add_url_rule("/wiki/random", endpoint="wiki_random", build_only=True)
 app.add_url_rule("/pdf/api/text", endpoint="pdf_upload", build_only=True)
-app.add_url_rule("/sklearn/keywords?algo=tfidf", endpoint="algo_sklearn_tfidf", build_only = True)
-app.add_url_rule("/sklearn/keywords?algo=count", endpoint="algo_sklearn_count", build_only = True)
+app.add_url_rule("/nlp-sklearn/api/keywords/tfidf", endpoint="algo_sklearn_tfidf", build_only = True)
+app.add_url_rule("/nlp-sklearn/api/keywords/count", endpoint="algo_sklearn_count", build_only = True)
 
 @app.route('/', methods=['GET'])
 def home():
