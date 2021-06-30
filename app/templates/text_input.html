@@ -78,9 +78,8 @@
             //************
             // PDF Form Action
             //************
+            let response_parent = document.getElementById('pdf_response')
             let response_container = document.getElementById('pdf_response_container')
-            let pdf_download_button = document.getElementById('pdf_download') 
-            let url_download = "{{url_for('pdf_download')}}"
             function on_pdf_request_ready(event) {
                 if (this.readyState == 4 && this.status == 200) {
                     var res = JSON.parse(this.responseText);
@@ -89,12 +88,7 @@
                     let str = JSON.stringify(res, null, 4)
                     response_container.innerHTML = ""
                     response_container.appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(str)
-                    response_container.style.display = 'block'
-                    // Download Button
-                    pdf_download_button.style.display = 'block'
-                    pdf_download_button.onclick = function() {
-                        window.open(`${url_download}/${res['id']}`, '_blank')
-                    }
+                    response_parent.style.display = 'block'
                 } else {
                     console.error("Ouch something went wrong")
                     console.debug(event)
@@ -136,22 +130,27 @@
         <label for="corpus">PDF File:</label><br>
         <form id="pdf_form" action="">
             <input type=file name=file id="file">
-            
         </form>
-        <button id="pdf_download" style="display: none;">Show</button>
-        <small><label>PDF Service Response</label></small>
-        <div id="pdf_response_container" style="display: none;" >
+        <div id="pdf_response" style="display: none;">
+            <small><label>PDF Service Response</label></small>
+            <div id="pdf_response_container"></div>
         </div>
+
+
     </div>
     <div id="section_wiki" style="display: none;">
-        <label for="corpus">Text:</label><br>
         <button id="btn_random">Get Random Article</button>
     </div>
 </div>
 <hr>
+
 <form method="post" action="{{url_for('text_analyse')}}" id="text_input">
-    <textarea type=text name=corpus id=corpus rows=12 cols=50>{{ text }}</textarea>
-    <button type="submit" name="submit_param" value="submit_value" class="link-button">
-        Analyse
-    </button>
+    <div>
+        <textarea type=text name=corpus id=corpus rows=12 cols=50>{{ text }}</textarea>
+    </div>
+    <div>
+        <button type="submit" name="submit_param" value="submit_value" class="link-button">
+            Analyse
+        </button>
+    </div>
 </form>
