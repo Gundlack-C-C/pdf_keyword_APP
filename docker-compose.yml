@@ -13,10 +13,14 @@ services:
       - backend
     links:
       - pdf
-      - matchmaker
+      - nlp-sklearn
+      - wiki
+      - app
     depends_on:
       - pdf
-      - matchmaker
+      - nlp-sklearn
+      - app
+      - wiki
   app:
     build: ./
     image: pdf2text/app
@@ -24,12 +28,12 @@ services:
     ports:
       - "5000:5001"
     links:
-      - matchmaker
+      - nlp-sklearn
       - pdf
       - wiki
     depends_on:
       - pdf
-      - matchmaker
+      - nlp-sklearn
       - wiki
     networks:
       - backend
@@ -50,10 +54,10 @@ services:
       - backend
     volumes:
       - log-volume:/usr/src/app/.log
-  matchmaker:
+  nlp-sklearn:
     build: ./app/Matchmaker/
-    image: pdf2text/matchmaker
-    container_name: match-service
+    image: pdf2text/nlp-sklearn
+    container_name: nlp-sklearn-service
     ports:
       - "5002:5001"
     working_dir: /usr/src/app

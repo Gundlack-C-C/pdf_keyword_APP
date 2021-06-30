@@ -10,9 +10,9 @@ app = Flask(__name__)
 CORS(app)
 
 environments = []
-environments.append(('/sklear', 'NLP Service using sklearn'))
-environments.append(('/pdf', 'Pdf Service'))
-environments.append(('/wiki', 'Wiki API Service'))
+environments.append(('/nlp-sklearn', 'NLP Service - Sklearn'))
+environments.append(('/pdf', 'PDF Service'))
+environments.append(('/wiki', 'Wiki Service'))
 
 app.add_url_rule("/playground", endpoint="playground", build_only=True)
 app.add_url_rule("/set_text", endpoint="text_set", build_only=True)
