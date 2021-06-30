@@ -80,21 +80,6 @@
             //************
             let response_parent = document.getElementById('pdf_response')
             let response_container = document.getElementById('pdf_response_container')
-            function on_pdf_request_ready(event) {
-                if (this.readyState == 4 && this.status == 200) {
-                    var res = JSON.parse(this.responseText);
-                    text_area.value = res['text']
-                    // Rest API Response
-                    let str = JSON.stringify(res, null, 4)
-                    response_container.innerHTML = ""
-                    response_container.appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(str)
-                    response_parent.style.display = 'block'
-                } else {
-                    console.error("Ouch something went wrong")
-                    console.debug(event)
-                }
-            }
-
 
             document.getElementById('file').onchange = function () {
                 console.log("pdf")
@@ -103,7 +88,20 @@
 
                 var xhr = new XMLHttpRequest()
                 xhr.open("POST", url)
-                xhr.onload = on_pdf_request_ready
+                xhr.onload = function (event) {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var res = JSON.parse(this.responseText);
+                        text_area.value = res['text']
+                        // Rest API Response
+                        let str = JSON.stringify(res, null, 4)
+                        response_container.innerHTML = ""
+                        response_container.appendChild(document.createElement('pre')).innerHTML = syntaxHighlight(str)
+                        response_parent.style.display = 'block'
+                    } else {
+                        console.error("Ouch something went wrong")
+                        console.debug(event)
+                    }
+                }
 
                 var formData = new FormData(document.getElementById('pdf_form'))
                 xhr.send(formData)
