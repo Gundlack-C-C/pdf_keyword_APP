@@ -1,22 +1,4 @@
 <div>
-    {% if param.get('use_idf', True) %}
-    <input type="checkbox" value=True name="use_idf" checked>
-    {% else %}
-    <input type="checkbox" value=True name="use_idf">
-    {% endif %}
-    <label for="use_idf">Inverse Document Frequency (IDF)</label>
-</div>
-
-<div>
-    {% if param.get('smooth_idf', True) %}
-    <input type="checkbox" value=True id="smooth_idf" name="smooth_idf" checked>
-    {% else %}
-    <input type="checkbox" value=True id="smooth_idf" name="smooth_idf">
-    {% endif %}
-    <label for="smooth_idf">Smooth IDF</label>
-</div>
-
-<div>
     <label for="max_feature">Maximal #Feature</label>
     <input type="number" id="max_feature" name="max_feature" value='{{param.get('max_feature', 1024)}}' min=-1>
 </div>

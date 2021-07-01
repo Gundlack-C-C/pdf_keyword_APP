@@ -14,49 +14,48 @@
             //************
             let DOM_options = document.getElementById('algorithm_options')
             let algo = DOM_options.value
-            let url_algo = algo_target[algo][1]
             DOM_options.onchange = function (event) {
                 algo = DOM_options.value;
 
-                let childs = Array.from(document.getElementById('input_option_container').children)
+                let childs = Array.from(document.getElementById('algo_forms').children)
 
                 // Hide All Sections
                 childs.forEach((element) => {
                     element.style.display = "none"
                 });
                 // Show Selected Section
-                let target = document.getElementById(`section_${algo}`)
+                let target = document.getElementById(`form_${algo}`)
                 target.style.display = "block"
-
-                url_algo = algo_target[algo][1]
             }
-            let keywords = []
-            let DOM_results = document.getElementById('keywords_results')
-            document.getElementById('form_analyse').onsubmit = function(event) {
+
+            function onFormSubmit(event) {
+                event.preventDefault()
+                url = this.action
                 console.log(this)
-                console.log(`Call - ${algo}: ${url_algo}`)
+                console.log(`Call - ${algo}: ${url}`)
 
                 var xhr = new XMLHttpRequest()
-                xhr.open("POST", url_algo)
+                xhr.open("POST", url)
                 
                 xhr.onload = function(event) {
                     if (this.readyState == 4 && this.status == 200) {
                         var res = JSON.parse(this.responseText);
-                        keywords = res['data']
-                        html = res['html']
 
-                        DOM_results.innerHTML = html
+                        html = res['html']
+                        document.getElementById('keywords_results').innerHTML = html
+                        console.debug(res['keywords'])
+                        event.preventDefault()
                     } else {
                         console.error("Ouch something went wrong")
                         console.debug(event)
                     }
                 }
 
-                var formData = new FormData(document.getElementById('form_analyse'))
-                xhr.send(formData)
-
-                event.preventDefault()
+                xhr.send(new FormData(this))
             }
+
+            document.getElementById('form_sklearn-tfidf').onsubmit = onFormSubmit
+            document.getElementById('form_sklearn-count').onsubmit = onFormSubmit
         }
     </script>
 </head>
@@ -71,30 +70,38 @@
     </select>
 </div>
 <hr>
-
-<form method="post" id="form_analyse">
-    <div id="input_option_container">
-        <div id="section_sklearn-tfidf">
+<div id="algo_forms">
+    <form method="post" id="form_sklearn-tfidf" action="{{url_for('algo_sklearn_tfidf')}}">
+        <div>
             <label for="corpus">Sklearn TFIDF Parameter</label>
             <hr>
             {% include 'parameter_tfidf.html' %}
         </div>
-        <div id="section_sklearn-count" style="display: none;">
+        <hr>
+        <div>
+            <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                Get Keywords
+            </button>
+        </div>
+    </form>
+    
+    <form method="post" id="form_sklearn-count" action="{{url_for('algo_sklearn_count')}}" style="display: none;">
+        <div>
             <label for="corpus">Sklearn COUNT Parameter</label>
             <hr>
-            <div>Not Implemented</div>
+            {% include 'parameter_count.html' %}
         </div>
-    </div>
-    <hr>
-    <div>
-        <textarea type=text name=corpus id=corpus rows=12 cols=50>{{ text }}</textarea>
-    </div>
-    <div>
-        <button type="submit" name="submit_param" value="submit_value" class="link-button">
-            Analyse
-        </button>
-    </div>
-</form>
+        <hr>
+        <div>
+            <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                Get Keywords
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
 
 <hr>
 <h2>Results</h2>
