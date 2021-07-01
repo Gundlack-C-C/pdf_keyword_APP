@@ -47,7 +47,8 @@
                         event.preventDefault()
                     } else {
                         console.error("Ouch something went wrong")
-                        console.debug(event)
+                        console.error(event.currentTarget.response)
+                        document.getElementById('keywords_results').innerHTML = event.currentTarget.responseText
                     }
                 }
 
