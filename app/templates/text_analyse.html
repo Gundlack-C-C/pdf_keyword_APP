@@ -7,6 +7,7 @@
 
     </style>
     <script>
+        let text = "{{text}}"
         window.onload = function () {
             let algo_target = JSON.parse('{{ algorithms | tojson() }}')
             //************
@@ -57,6 +58,10 @@
 
             document.getElementById('form_sklearn-tfidf').onsubmit = onFormSubmit
             document.getElementById('form_sklearn-count').onsubmit = onFormSubmit
+
+            if(text && text.length) {
+                document.getElementById('form_sklearn-tfidf').dispatchEvent(new Event("submit"))
+            }
         }
     </script>
 </head>
