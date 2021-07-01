@@ -115,46 +115,41 @@
         }
     </script>
 </head>
-
-<div>
-    <label for="corpus">Method:</label><br>
-
-    <select name="text_mode" id="input_options">
-        <option value="manual">Manual Input</option>
-        <option value="pdf">PDF Input</option>
-        <option value="wiki">Wiki Input</option>
-    </select>
-</div>
-<hr>
-<div id="input_option_container">
-    <div id="section_manual">
-        <label for="corpus">Text:</label><br>
+<body style="display: none;">
+    <div>
+        <label for="corpus">Method:</label><br>
+    
+        <select name="text_mode" id="input_options">
+            <option value="wiki">Wiki Input</option>
+            <option value="pdf">PDF Input</option>
+        </select>
     </div>
-    <div id="section_pdf" style="display: none;">
-        <label for="corpus">PDF File:</label><br>
-        <form id="pdf_form" action="">
-            <input type=file name=file id="file">
-        </form>
-        <div id="pdf_response" style="display: none;">
-            <small><label>PDF Service Response</label></small>
-            <div id="pdf_response_container"></div>
+    <hr>
+    <div id="input_option_container">
+        <div id="section_wiki">
+            <button id="btn_random">Get Random Article</button>
         </div>
-
-
+        <div id="section_pdf" style="display: none;">
+            <label for="corpus">PDF File:</label><br>
+            <form id="pdf_form" action="">
+                <input type=file name=file id="file">
+            </form>
+            <div id="pdf_response" style="display: none;">
+                <small><label>PDF Service Response</label></small>
+                <div id="pdf_response_container"></div>
+            </div>
+        </div>
     </div>
-    <div id="section_wiki" style="display: none;">
-        <button id="btn_random">Get Random Article</button>
-    </div>
-</div>
-<hr>
-
-<form method="post" action="{{url_for('text_analyse')}}" id="text_input">
-    <div>
-        <textarea type=text name=corpus id=corpus rows=12 cols=50>{{ text }}</textarea>
-    </div>
-    <div>
-        <button type="submit" name="submit_param" value="submit_value" class="link-button">
-            Analyse
-        </button>
-    </div>
-</form>
+    <hr>
+    
+    <form method="post" action="{{url_for('text_analyse')}}" id="text_input">
+        <div>
+            <textarea type=text name=corpus id=corpus rows=12 cols=50>{{ text }}</textarea>
+        </div>
+        <div>
+            <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                Analyse
+            </button>
+        </div>
+    </form>
+</body>
