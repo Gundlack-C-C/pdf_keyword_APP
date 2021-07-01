@@ -73,7 +73,7 @@ services:
     ports:
       - "5003:5001"
     working_dir: /usr/src/app
-    command: python3 server.py
+    command: Server
     networks:
       - backend
     volumes:
