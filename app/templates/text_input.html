@@ -64,17 +64,23 @@
             // Random Button Action
             //************
 
-            document.getElementById('btn_random').onclick = function () {
+            function getRandomText() {
                 console.log("random")
                 var url = "{{ url_for('wiki_random') }}"
                 let request = new Request(url)
 
-                fetch(request)
+                return fetch(request)
                 .then(response => response.json())
                 .then((text) => {
                     text_area.value = text
                 })
             }
+            document.getElementById('btn_random').onclick = getRandomText
+            // Init Text with random text
+            getRandomText().then(() => {
+                document.body.style.display = "block"
+            })
+
             //************
             // PDF Form Action
             //************
