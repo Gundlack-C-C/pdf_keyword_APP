@@ -17,10 +17,12 @@ environments.append(('/wiki', 'Wiki Service'))
 app.add_url_rule("/playground", endpoint="playground", build_only=True)
 app.add_url_rule("/set_text", endpoint="text_set", build_only=True)
 app.add_url_rule("/analyse_text", endpoint="text_analyse", build_only=True)
+app.add_url_rule("/analyse_text_compare", endpoint="text_analyse_compare", build_only=True)
 app.add_url_rule("/wiki/random", endpoint="wiki_random", build_only=True)
 app.add_url_rule("/pdf/api/text", endpoint="pdf_upload", build_only=True)
 app.add_url_rule("/nlp-sklearn/api/keywords/tfidf", endpoint="algo_sklearn_tfidf", build_only = True)
 app.add_url_rule("/nlp-sklearn/api/keywords/count", endpoint="algo_sklearn_count", build_only = True)
+
 
 @app.route('/', methods=['GET'])
 def home():
@@ -43,6 +45,12 @@ def analyse_text():
         logging.debug(request.form)
 
     return render_template('text_analyse.html', param=param, text=text, algorithms=algorithms)
+
+@app.route('/analyse_text_compare', methods=['GET', 'POST'])
+def analyse_text_compare():
+    text = request.form.get('corpus', '')
+
+    return render_template('algo_compare.html', text=text)
 
 @app.route('/set_text', methods=['GET'])
 def set_text():
