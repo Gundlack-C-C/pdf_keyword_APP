@@ -3,9 +3,9 @@
 <h1>Text Input</h1>
 
 <head>
-    <style>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='d3_bar.js') }}"></script>
 
-    </style>
     <script>
         window.onload = function () {
             let algo_target = JSON.parse('{{ algorithms | tojson() }}')
@@ -43,7 +43,18 @@
 
                         html = res['html']
                         document.getElementById('keywords_results').innerHTML = html
-                        console.debug(res['keywords'])
+
+                        data = res['data']
+                        corpus = data[0]
+                        renderchart('bar_chart_corpus', corpus[1])
+
+                        data.forEach((item, i) => {
+                            if(i > 0) {
+                                renderchart(`bar_chart_${i}`, item[1])
+                            }
+                        });
+
+                        document.getElementById('bar_chart_corpus')
                         event.preventDefault()
                     } else {
                         console.error("Ouch something went wrong")
