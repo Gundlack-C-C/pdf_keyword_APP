@@ -2,10 +2,6 @@
 	path = app/pdf2text
 	url = git@github.com:GundlackFelixDEV/pdf2text.git
 	branch = main
-[submodule "Matchmaker"]
-	path = app/Matchmaker
-	url = git@github.com:GundlackFelixDEV/Matchmaker.git
-	branch = develop
 [submodule "Wiki"]
 	path = app/Wiki
 	url = git@github.com:GundlackFelixDEV/Wiki.git
@@ -14,3 +10,7 @@
 	path = app/NLP_Embedding
 	url = git@github.com:GundlackFelixDEV/NLP_Embedding.git
 	branch = main
+[submodule "NLP_SKLEARN"]
+	path = app/NLP_SKLEARN
+	url = git@github.com:GundlackFelixDEV/Matchmaker.git
+	branch = develop
