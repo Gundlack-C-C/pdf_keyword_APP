@@ -1,0 +1,127 @@
+<!doctype html>
+<title>Text Input</title>
+<h1>Text Input</h1>
+
+<head>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script rel="script" type="text/javascript" src="{{ url_for('static', filename='d3_bar.js') }}"></script>
+
+    <script>
+        window.onload = function () {
+            let algo_target = JSON.parse('{{ algorithms | tojson() }}')
+            //************
+            // Input Options
+            //************
+            let DOM_options = document.getElementById('algorithm_options')
+            let algo = DOM_options.value
+            DOM_options.onchange = function (event) {
+                algo = DOM_options.value;
+
+                let childs = Array.from(document.getElementById('algo_forms').children)
+
+                // Hide All Sections
+                childs.forEach((element) => {
+                    element.style.display = "none"
+                });
+                // Show Selected Section
+                let target = document.getElementById(`form_${algo}`)
+                target.style.display = "block"
+            }
+
+            function onFormSubmit(event) {
+                event.preventDefault()
+                url = this.action
+                console.log(this)
+                console.log(`Call - ${algo}: ${url}`)
+
+                var xhr = new XMLHttpRequest()
+                xhr.open("POST", url)
+                
+                xhr.onload = function(event) {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var res = JSON.parse(this.responseText);
+
+                        html = res['html']
+                        document.getElementById('keywords_results').innerHTML = html
+
+                        data = res['data']
+                        corpus = data[0]
+                        renderchart('bar_chart_corpus', corpus[1])
+
+                        data.forEach((item, i) => {
+                            if(i > 0) {
+                                renderchart(`bar_chart_${i}`, item[1])
+                            }
+                        });
+
+                        document.getElementById('bar_chart_corpus')
+                        event.preventDefault()
+                    } else {
+                        console.error("Ouch something went wrong")
+                        console.error(event.currentTarget.response)
+                        document.getElementById('keywords_results').innerHTML = event.currentTarget.responseText
+                    }
+                }
+
+                xhr.send(new FormData(this))
+            }
+
+            document.getElementById('form_sklearn-tfidf').onsubmit = onFormSubmit
+            document.getElementById('form_sklearn-count').onsubmit = onFormSubmit
+
+            let text = document.getElementById('corpus').value
+            if(text && text.length) {
+                document.getElementById('form_sklearn-tfidf').dispatchEvent(new Event("submit"))
+            }
+        }
+    </script>
+</head>
+
+<div>
+    <label for="corpus">Method:</label><br>
+
+    <select name="analyze_mode" id="algorithm_options">
+        {% for key, value in algorithms.items() %}
+        <option value="{{key}}">{{value[0]}}</option>
+        {% endfor %}
+    </select>
+</div>
+<hr>
+<div id="algo_forms">
+    <form method="post" id="form_sklearn-tfidf" action="{{url_for('algo_sklearn_tfidf')}}">
+        <div>
+            <label for="corpus">Sklearn TFIDF Parameter</label>
+            <hr>
+            {% include 'parameter_tfidf.html' %}
+        </div>
+        <hr>
+        <div>
+            <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                Get Keywords
+            </button>
+        </div>
+    </form>
+    
+    <form method="post" id="form_sklearn-count" action="{{url_for('algo_sklearn_count')}}" style="display: none;">
+        <div>
+            <label for="corpus">Sklearn COUNT Parameter</label>
+            <hr>
+            {% include 'parameter_count.html' %}
+        </div>
+        <hr>
+        <div>
+            <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                Get Keywords
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
+<hr>
+{% include 'compare_button.html' %}
+<hr>
+<h2>Results</h2>
+<div id="keywords_results">
+</div>

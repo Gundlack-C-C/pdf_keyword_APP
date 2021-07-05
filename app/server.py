@@ -1,67 +1,65 @@
 from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory
 from flask_cors import CORS
-
+import requests
 import logging
 import argparse
 import os, sys
-from werkzeug.utils import secure_filename
-from pdf2text.app.PDFReader import pdf2text
-
-UPLOAD_FOLDER = './.upload/'
-ALLOWED_EXTENSIONS = {'pdf', 'txt'}
+from werkzeug.exceptions import NotImplemented
 
 app = Flask(__name__)
 CORS(app)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-app.add_url_rule("/uploads/<name>", endpoint="download_file", build_only=True)
-app.add_url_rule("/info/<name>", endpoint="info_file", build_only=True)
-app.add_url_rule("/upload", endpoint="upload", build_only=True)
-app.add_url_rule("/matchmaker/keywords", endpoint="analyse_text", build_only=True)
-app.add_url_rule("/matchmaker/random", endpoint="random", build_only=True)
+environments = []
+environments.append(('/nlp-sklearn', 'NLP Service - Sklearn'))
+environments.append(('/pdf', 'PDF Service'))
+environments.append(('/wiki', 'Wiki Service'))
 
-def allowed_file(filename):
-    return '.' in filename and \
-        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+app.add_url_rule("/playground", endpoint="playground", build_only=True)
+app.add_url_rule("/set_text", endpoint="text_set", build_only=True)
+app.add_url_rule("/analyse_text", endpoint="text_analyse", build_only=True)
+app.add_url_rule("/analyse_text_compare", endpoint="text_analyse_compare", build_only=True)
+app.add_url_rule("/wiki/random", endpoint="wiki_random", build_only=True)
+app.add_url_rule("/pdf/api/text", endpoint="pdf_upload", build_only=True)
+app.add_url_rule("/nlp-sklearn/api/keywords/tfidf", endpoint="algo_sklearn_tfidf", build_only = True)
+app.add_url_rule("/nlp-sklearn/api/keywords/count", endpoint="algo_sklearn_count", build_only = True)
+
 
 @app.route('/', methods=['GET'])
 def home():
-    return redirect(url_for('upload'))
+    return render_template('index.html', environments=environments)
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
+@app.route('/playground', methods=['GET', 'POST'])
+def playground():
+    text = request.form.get('input_text', '')
+    return render_template('playground.html', text=text)
 
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('info_file', name=filename))
-    
-    return render_template('file_upload.html')
+@app.route('/analyse_text', methods=['GET', 'POST'])
+def analyse_text():
+    param = {}
+    text = request.form.get('corpus', '')
+    algorithms={ 
+        'sklearn-tfidf': ('Sklearn - TFIDF', url_for('algo_sklearn_tfidf')),
+        'sklearn-count': ('Sklearn - COUNT', url_for('algo_sklearn_count'))
+    }
+    if 'param' in request.form:
+        logging.debug(request.form)
 
-@app.route('/info/<name>')
-def info_file(name):
-    text = pdf2text(f"{app.config['UPLOAD_FOLDER']}{name}")
-    return render_template('file_upload_info.html', filename=name, text=text)
+    return render_template('text_analyse.html', param=param, text=text, algorithms=algorithms)
 
-@app.route('/uploads/<name>')
-def download_file(name):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+@app.route('/analyse_text_compare', methods=['GET', 'POST'])
+def analyse_text_compare():
+    text = request.form.get('corpus', '')
+
+    return render_template('algo_compare.html', text=text)
+
+@app.route('/set_text', methods=['GET'])
+def set_text():
+    return render_template('text_input.html', settings=[], text='')
 
 if __name__ == '__main__':
 
     try:
-        LOG = "./.log/PDF_KEYWORD_SERVER.log"
+        LOG = "./.log/app.log"
 
         # Setup Argument Parser
         parser = argparse.ArgumentParser(description='Argument Parser')
@@ -77,8 +75,6 @@ if __name__ == '__main__':
         if not os.path.exists(os.path.abspath(os.path.dirname(args.LOGFILE))):
                 os.makedirs(os.path.abspath(os.path.dirname(args.LOGFILE)))
 
-        if not os.path.exists(os.path.abspath(os.path.dirname(UPLOAD_FOLDER))):
-                os.makedirs(os.path.abspath(os.path.dirname(UPLOAD_FOLDER)))
         
         # Setup Logging
         logging.basicConfig(filename=args.LOGFILE, level=logging.INFO if PRODUCTION else logging.DEBUG,

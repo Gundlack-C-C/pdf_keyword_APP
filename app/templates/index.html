@@ -1,7 +1,18 @@
 <!doctype html>
 <title>PDF Keyword App</title>
 <h1>PDF Keyword extraction Experiments</h1>
+<h2>Environments and Services</h2>
 <ul>
-    <li><a href="#/upload">PDF Textextraction</a></li>
-    <li><a href="#/random_wiki">Wordpress Keywords</a></li>
+    {% for url, label in environments %}
+    <li>
+        <a href="{{ url }}">{{ label }}</a>
+    </li>
+    {% endfor %}
 </ul>
+<h2>Application</h2>
+<ul>
+    <li>
+        <a href="{{url_for('set_text')}}">NLP Text Analytics APP</a>
+    </li>
+</ul>
+

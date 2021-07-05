@@ -13,34 +13,79 @@ services:
       - backend
     links:
       - pdf
-      - matchmaker
+      - nlp-sklearn
+      - wiki
+      - app
     depends_on:
       - pdf
-      - matchmaker
+      - nlp-sklearn
+      - app
+      - wiki
+  app:
+    build: ./
+    image: pdf2text/app
+    container_name: app
+    ports:
+      - "5000:5001"
+    links:
+      - nlp-sklearn
+      - pdf
+      - wiki
+    depends_on:
+      - pdf
+      - nlp-sklearn
+      - wiki
+    networks:
+      - backend
+      - frontend
+    working_dir: /usr/src/app
+    command: python3 server.py
+    volumes:
+      - log-volume:/usr/src/app/.log
   pdf:
-    build: .
+    build: ./app/pdf2text/
     image: pdf2text/pdfservice
     container_name: pdf-service
     ports:
       - "5001:5001"
-    links:
-      - matchmaker
-    command: python3 /usr/src/app/server.py
+    working_dir: /usr/src/app
+    command: python3 server.py
     networks:
       - backend
-    depends_on:
-      - matchmaker
     volumes:
-      - ./app/.upload:/usr/src/app/.upload/
-  matchmaker:
+      - log-volume:/usr/src/app/.log
+  nlp-sklearn:
     build: ./app/Matchmaker/
-    image: pdf2text/matchmaker
-    container_name: match-service
+    image: pdf2text/nlp-sklearn
+    container_name: nlp-sklearn-service
     ports:
       - "5002:5001"
+    working_dir: /usr/src/app
     command: Server
     networks:
       - backend
+    volumes:
+      - log-volume:/usr/src/app/.log
+  wiki:
+    build: ./app/Wiki/
+    image: pdf2text/wiki
+    container_name: wiki-service
+    ports:
+      - "5003:5001"
+    working_dir: /usr/src/app
+    command: Server
+    networks:
+      - backend
+    volumes:
+      - log-volume:/usr/src/app/.log
 networks:
   frontend:
   backend:
+
+volumes:
+  log-volume:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./app/.log/

@@ -19,10 +19,6 @@
             "program": "${workspaceFolder}/app/server.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/app",
-            "args": [
-                "-l",
-                "./.test_out/server.log"
-            ]
         },
         {
             "name": "App",

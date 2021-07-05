@@ -5,7 +5,11 @@
 [submodule "Matchmaker"]
 	path = app/Matchmaker
 	url = git@github.com:GundlackFelixDEV/Matchmaker.git
-	branch = main
+	branch = develop
+[submodule "Wiki"]
+	path = app/Wiki
+	url = git@github.com:GundlackFelixDEV/Wiki.git
+	branch = develop
 [submodule "NLP_Embedding"]
 	path = app/NLP_Embedding
 	url = git@github.com:GundlackFelixDEV/NLP_Embedding.git

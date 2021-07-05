@@ -1,0 +1,21 @@
+<div>
+    <label for="max_feature">Maximal #Feature</label>
+    <input type="number" id="max_feature" name="max_feature" value='{{param.get('max_feature', 1024)}}' min=-1>
+</div>
+<div>
+    <label for="use_idf">Document Frequency</label>
+    <label>Min</label>
+    <input type="number" id="min_df" name="min_df" value='{{param.get('min_df', 1)}}' min=0 step="0.01">
+    <label>Max</label>
+    <input type="number" id="max_df" name="max_df" value='{{param.get('max_df', 1.0)}}' min=0 step="0.01">
+</div>
+
+<div>
+    <label for="use_idf">NGram Range</label>
+    <input type="number" id="ngram_range_min" name="ngram_range_min" value='{{param.get('ngram_range', (1, 1))[0]}}' min=1>
+    <input type="number" id="ngram_range_max" name="ngram_range_max" value='{{param.get('ngram_range', (1, 1))[1]}}' min=1>
+</div>
+
+<div>
+    <textarea type=text name=corpus id=corpus rows=12 cols=50>{{ text }}</textarea>
+</div>
