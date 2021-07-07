@@ -12,15 +12,11 @@ services:
       - frontend
       - backend
     links:
-      - pdf
-      - nlp-sklearn
-      - wiki
       - app
-    depends_on:
       - pdf
-      - nlp-sklearn
-      - app
       - wiki
+      - nlp-sklearn
+      - nlp-transformers
   app:
     build: ./
     image: pdf2text/app
@@ -28,13 +24,10 @@ services:
     ports:
       - "5000:5001"
     links:
-      - nlp-sklearn
       - pdf
       - wiki
-    depends_on:
-      - pdf
       - nlp-sklearn
-      - wiki
+      - nlp-transformers
     networks:
       - backend
       - frontend
@@ -54,18 +47,6 @@ services:
       - backend
     volumes:
       - log-volume:/usr/src/app/.log
-  nlp-sklearn:
-    build: ./app/NLP_SKLEARN/
-    image: pdf2text/nlp-sklearn
-    container_name: nlp-sklearn-service
-    ports:
-      - "5002:5001"
-    working_dir: /usr/src/app
-    command: Server
-    networks:
-      - backend
-    volumes:
-      - log-volume:/usr/src/app/.log
   wiki:
     build: ./app/Wiki/
     image: pdf2text/wiki
@@ -78,6 +59,31 @@ services:
       - backend
     volumes:
       - log-volume:/usr/src/app/.log
+  nlp-sklearn:
+    build: ./app/NLP_SKLEARN/
+    image: pdf2text/nlp-sklearn
+    container_name: nlp-sklearn-service
+    ports:
+      - "5101:5001"
+    working_dir: /usr/src/app
+    command: Server
+    networks:
+      - backend
+    volumes:
+      - log-volume:/usr/src/app/.log
+  nlp-transformers:
+    build: ./app/NLP_Embedding/
+    image: pdf2text/nlp-transformers
+    container_name: nlp-transformers-service
+    ports:
+      - "5102:5001"
+    working_dir: /usr/src/app
+    command: python3 server.py
+    networks:
+      - backend
+    volumes:
+      - log-volume:/usr/src/app/.log
+      - model-volume:/usr/src/app/.model
 networks:
   frontend:
   backend:
@@ -89,3 +95,9 @@ volumes:
       o: bind
       type: none
       device: ./app/.log/
+  model-volume:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./app/NLP_Embedding/.model/
