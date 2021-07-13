@@ -73,6 +73,10 @@
                     param['max_feature'] =  eval(inputs.max_feature.value) > 0 ? eval(inputs.max_feature.value) : None
                 }
 
+                if('metric' in inputs) {
+                    param['metric'] =  inputs.metric.value
+                }
+
                 text = inputs.corpus.value
 
                 var xhr = new XMLHttpRequest()

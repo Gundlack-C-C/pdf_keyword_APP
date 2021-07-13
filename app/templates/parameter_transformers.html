@@ -1,3 +1,40 @@
 <div>
     <textarea type=text name=corpus id=corpus rows=12 cols=50>{{ text }}</textarea><br>
 </div>
+
+<div>
+    <div>
+        <label for="ngram_range">NGram Range</label>
+    </div>
+    <div>
+        <input type="number" id="ngram_range_min" name="ngram_range_min" value='{{param.get('ngram_range', (1, 1))[0]}}' min=1>
+        <input type="number" id="ngram_range_max" name="ngram_range_max" value='{{param.get('ngram_range', (1, 1))[1]}}' min=1>
+    </div>
+</div>
+
+<div>
+    <div>
+        <label>Distance Metric</label>
+        <small><a target="_blank"
+                href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html#sklearn.metrics.pairwise_distances">@see
+                SKlearn Pairwise Distances</a></small>
+    </div>
+    <div>
+        <select id="metric" name="metric">
+            <option value="l1" {% if param['metric']=='l1' %} selected="selected" {% endif %}>L1</option>
+            <option value="l2" {% if param['metric']=='l2' %} selected="selected" {% endif %}>L2</option>
+            <option value="cosine" {% if param['metric']=='cosine' %} selected="selected" {% endif %}>Cosine
+            </option>
+            <option value="euclidean" {% if param['metric']=='euclidean' %} selected="selected" {% endif %}>
+                Euclidean
+            </option>
+            <option value="chebyshev" {% if param['metric']=='chebyshev' %} selected="selected" {% endif %}>
+                Chebyshev
+            </option>
+            <option value="correlation" {% if param['metric']=='correlation' %} selected="selected" {% endif %}>
+                Correlation</option>
+            <option value="hamming" {% if param['metric']=='hamming' %} selected="selected" {% endif %}>Hamming
+            </option>
+        </select>
+    </div>
+</div>
