@@ -28,15 +28,54 @@
                 target.style.display = "block"
             }
 
+            function isFloat(x) { 
+                regexp = new RegExp('^[+-]?([0-9]{1,})[.,]([0-9]{1,})$')
+                return regexp.test(x)
+            }
+
             function onFormSubmit(event) {
                 event.preventDefault()
                 url = this.action
                 console.log(this)
                 console.log(`Call - ${algo}: ${url}`)
+              
+
+                var inputs = this.elements
+                param = {}
+                
+                if('ngram_range_min' in inputs && 'ngram_range_max' in inputs){
+                    param['ngram_range'] = [eval(inputs.ngram_range_min.value),eval(inputs.ngram_range_max.value)]
+                }
+
+                if('use_idf' in inputs) {
+                    param['use_idf'] = eval(inputs.use_idf.value)
+                }
+
+                if('smooth_idf' in inputs) {
+                    param['smooth_idf'] = eval(inputs.smooth_idf.value)
+                }
+
+                if('max_df' in inputs) {
+                    val = inputs.max_df.value
+                    //fn = isFloat(val) ? parseFloat : parseInt;
+                    //data['max_df'] = fn(val);
+                    param['max_df'] = val;
+                }
+
+                if('min_df' in inputs) {
+                    val = inputs.min_df.value
+                    //fn = isFloat(val) ? parseFloat : parseInt;
+                    //data['min_df'] = fn(val)
+                    param['min_df'] = val;
+                }
+
+                if('max_feature' in inputs) {
+                    param['max_feature'] =  eval(inputs.max_feature.value) > 0 ? eval(inputs.max_feature.value) : None
+                }
+
+                text = inputs.corpus.value
 
                 var xhr = new XMLHttpRequest()
-                xhr.open("POST", url)
-                
                 xhr.onload = function(event) {
                     if (this.readyState == 4 && this.status == 200) {
                         var res = JSON.parse(this.responseText);
@@ -59,11 +98,12 @@
                     } else {
                         console.error("Ouch something went wrong")
                         console.error(event.currentTarget.response)
-                        document.getElementById('keywords_results').innerHTML = event.currentTarget.responseText
+                        document.getElementById('keywords_results').innerHTML = event.currentTarget.response
                     }
                 }
-
-                xhr.send(new FormData(this))
+                xhr.open("POST", url) 
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+                xhr.send(JSON.stringify({"text": text, "param": param}))
             }
 
             document.getElementById('form_sklearn-tfidf').onsubmit = onFormSubmit
@@ -107,6 +147,20 @@
             <label for="corpus">Sklearn COUNT Parameter</label>
             <hr>
             {% include 'parameter_count.html' %}
+        </div>
+        <hr>
+        <div>
+            <button type="submit" name="submit_param" value="submit_value" class="link-button">
+                Get Keywords
+            </button>
+        </div>
+    </form>
+
+    <form method="post" id="form_transformers" action="{{url_for('algo_transformers_keywords')}}" style="display: none;">
+        <div>
+            <label for="corpus">Transformers Parameter</label>
+            <hr>
+            {% include 'parameter_transformers.html' %}
         </div>
         <hr>
         <div>
