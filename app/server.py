@@ -1,18 +1,19 @@
-from flask import Flask, render_template, flash, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template,  request, url_for
 from flask_cors import CORS
-import requests
 import logging
 import argparse
 import os, sys
-from werkzeug.exceptions import NotImplemented
+
 
 app = Flask(__name__)
 CORS(app)
 
 environments = []
 environments.append(('/nlp-sklearn', 'NLP Service - Sklearn'))
+environments.append(('/nlp-transformers', 'NLP Service - Transformers'))
 environments.append(('/pdf', 'PDF Service'))
 environments.append(('/wiki', 'Wiki Service'))
+
 
 app.add_url_rule("/playground", endpoint="playground", build_only=True)
 app.add_url_rule("/set_text", endpoint="text_set", build_only=True)
@@ -22,7 +23,7 @@ app.add_url_rule("/wiki/random", endpoint="wiki_random", build_only=True)
 app.add_url_rule("/pdf/api/text", endpoint="pdf_upload", build_only=True)
 app.add_url_rule("/nlp-sklearn/api/keywords/tfidf", endpoint="algo_sklearn_tfidf", build_only = True)
 app.add_url_rule("/nlp-sklearn/api/keywords/count", endpoint="algo_sklearn_count", build_only = True)
-
+app.add_url_rule("/nlp-transformers/api/keywords", endpoint="algo_transformers_keywords", build_only = True)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -38,8 +39,9 @@ def analyse_text():
     param = {}
     text = request.form.get('corpus', '')
     algorithms={ 
-        'sklearn-tfidf': ('Sklearn - TFIDF', url_for('algo_sklearn_tfidf')),
-        'sklearn-count': ('Sklearn - COUNT', url_for('algo_sklearn_count'))
+        'sklearn-tfidf': ('Sklearn - TFIDF', url_for('algo_sklearn_tfidf'), 'parameter_tfidf.html'),
+        'sklearn-count': ('Sklearn - COUNT', url_for('algo_sklearn_count'), 'parameter_count.html'),
+        'transformers': ('Transformers', url_for('algo_transformers_keywords'), 'parameter_transformers.html')
     }
     if 'param' in request.form:
         logging.debug(request.form)

@@ -1,0 +1,7 @@
+*.pyc
+
+# Ignore Submodules
+/app/NLP_Embedding
+/app/NLP_SKLEARN
+/app/pdf2text
+/app/Wiki

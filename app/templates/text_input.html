@@ -73,6 +73,8 @@
                 .then(response => response.json())
                 .then((text) => {
                     text_area.value = text
+                }).catch((err) => {
+                    console.error(err);
                 })
             }
             document.getElementById('btn_random').onclick = getRandomText
