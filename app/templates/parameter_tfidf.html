@@ -1,8 +1,8 @@
 <div>
     {% if param.get('use_idf', True) %}
-    <input type="checkbox" value=True name="use_idf" checked>
+    <input type="checkbox" value=true id="use_idf" name="use_idf" checked>
     {% else %}
-    <input type="checkbox" value=True name="use_idf">
+    <input type="checkbox" value=true id="use_idf" name="use_idf">
     {% endif %}
     <label for="use_idf">Inverse Document Frequency (IDF)</label>
 </div>
