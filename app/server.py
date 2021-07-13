@@ -23,7 +23,7 @@ app.add_url_rule("/wiki/random", endpoint="wiki_random", build_only=True)
 app.add_url_rule("/pdf/api/text", endpoint="pdf_upload", build_only=True)
 app.add_url_rule("/nlp-sklearn/api/keywords/tfidf", endpoint="algo_sklearn_tfidf", build_only = True)
 app.add_url_rule("/nlp-sklearn/api/keywords/count", endpoint="algo_sklearn_count", build_only = True)
-app.add_url_rule("/nlp-transformers/api/keywords", endpoint="keywords_transformers", build_only = True)
+app.add_url_rule("/nlp-transformers/api/keywords", endpoint="algo_transformers_keywords", build_only = True)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -39,8 +39,9 @@ def analyse_text():
     param = {}
     text = request.form.get('corpus', '')
     algorithms={ 
-        'sklearn-tfidf': ('Sklearn - TFIDF', url_for('algo_sklearn_tfidf')),
-        'sklearn-count': ('Sklearn - COUNT', url_for('algo_sklearn_count'))
+        'sklearn-tfidf': ('Sklearn - TFIDF', url_for('algo_sklearn_tfidf'), 'parameter_tfidf.html'),
+        'sklearn-count': ('Sklearn - COUNT', url_for('algo_sklearn_count'), 'parameter_count.html'),
+        'transformers': ('Transformers', url_for('algo_transformers_keywords'), 'parameter_transformers.html')
     }
     if 'param' in request.form:
         logging.debug(request.form)
