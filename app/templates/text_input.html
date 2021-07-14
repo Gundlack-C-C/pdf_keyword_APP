@@ -71,7 +71,9 @@
 
                 return fetch(request)
                 .then(response => response.json())
-                .then((text) => {
+                .then((data) => {
+                    text = data['text'];
+                    text = [text['title'], text['description'], text['short']].join(". ")
                     text_area.value = text
                 }).catch((err) => {
                     console.error(err);
