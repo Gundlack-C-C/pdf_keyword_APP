@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Text } from '../commons/models'
 import { TextSpec } from '../commons/models.spec';
+import { EnvService } from '../env.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WikiService {
-  private BE = "http://localhost:5001/";
-  constructor(private http: HttpClient) { }
+  private BE: string;
+  constructor(private env: EnvService, private http: HttpClient) { 
+    this.BE = this.env.SERVICE_WIKI;
+  }
 
   random(n: number = 1): Promise<Text | null> {
     return new Promise<Text | null>((resolve, reject) => {
