@@ -2,25 +2,36 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Text } from '../commons/models';
 import { TextSpec } from '../commons/models.spec';
+import { EnvService } from '../env.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PdfService {
-  private BE = "http://localhost/pdf/";
-  constructor(private http: HttpClient) { }
+  private BE: string;
+  constructor(private env: EnvService, private http: HttpClient) { 
+    this.BE = this.env.SERVICE_PDF;
+  }
 
   getText(file: File): Promise<Text | null> {
     return new Promise<Text | null>((resolve, reject) => {
-
-      resolve(new TextSpec())
-      return;
-      
-      this.http.get<Text>(`${this.BE}/gettext`).toPromise<Text>().then((data: Text) => {
-          resolve(data)
-      }).catch((err) => {
-        reject(err);
-      });
+      if(this.BE == "MOCK") {
+        resolve(new TextSpec())
+      } else {
+        const formData = new FormData()
+        formData.append('file', file)
+        this.http.post<Text>(`${this.BE}/api/text`, formData).toPromise<Text>().then((data: any) => {
+          let text = new Text()
+          text.text = {
+            'title': data['id'],
+            'short': data['text']
+          }
+          resolve(text)
+        }).catch((err) => {
+          console.error(err)
+          reject(err);
+        });
+      }
     });
   }
 }
