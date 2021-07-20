@@ -12,6 +12,11 @@ export class WikiComponent implements OnInit {
   constructor(private wiki: WikiService) { }
 
   ngOnInit() {
+    this.getRandom()
+  }
+
+  getRandom() {
+    this.text = null;
     this.wiki.random().then((text: Text | null) => {
       this.text = text;
     })
