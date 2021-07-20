@@ -1,10 +1,10 @@
 [submodule "PDF2TEXT"]
 	path = app/pdf2text
-	url = git@github.com:GundlackFelixDEV/pdf2text.git
+	url = git@github.com:Gundlack-C-C/pdf2text.git
 	branch = main
 [submodule "Wiki"]
 	path = app/Wiki
-	url = git@github.com:GundlackFelixDEV/Wiki.git
+	url = git@github.com:Gundlack-C-C/Wiki.git
 	branch = develop
 [submodule "NLP_Embedding"]
 	path = app/NLP_Embedding
