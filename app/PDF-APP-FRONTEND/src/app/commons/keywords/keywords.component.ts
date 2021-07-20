@@ -14,4 +14,9 @@ export class KeywordsComponent implements OnInit {
       throw new Error("Attribute 'keywords' is required");
   }
 
+  get sorted_keywords(): string[] {
+    return this.keywords.sort((a, b) =>
+      a.localeCompare(b)
+    );
+  }
 }
