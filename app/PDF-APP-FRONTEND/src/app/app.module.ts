@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppCommonModule } from './commons/app.common.module';
 import { WikiModule } from './wiki/wiki.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { WikiModule } from './wiki/wiki.module';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    WikiModule
+    WikiModule,
+    NgbModule
   ],
   bootstrap: [AppComponent],
 })
