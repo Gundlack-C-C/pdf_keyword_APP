@@ -1,5 +1,9 @@
-<div>
-  <div *ngIf="TITLE" ><b>{{TITLE}}</b></div>
-  <div *ngIf="TITLE">{{DESCRIPTION}}</div>
-  <div *ngIf="TITLE">{{SHORT}}</div>
+<div class="card">
+  <div class="card-body">
+    <div *ngIf="TITLE" class="card-title">
+      <b>{{TITLE}}</b>
+      <div *ngIf="TITLE" class="font-italic">{{DESCRIPTION}}</div>
+    </div>
+    <div *ngIf="TITLE" class="card-text">{{SHORT}}</div>
+  </div>
 </div>
