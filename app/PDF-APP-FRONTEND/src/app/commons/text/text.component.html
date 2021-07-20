@@ -1,5 +1,5 @@
-<p>
-  text works!
-</p>
-<div>{{text.text | json}}</div>
-<app-keywords [keywords]="text.keywords">
+<div>
+  <div *ngIf="TITLE" ><b>{{TITLE}}</b></div>
+  <div *ngIf="TITLE">{{DESCRIPTION}}</div>
+  <div *ngIf="TITLE">{{SHORT}}</div>
+</div>
