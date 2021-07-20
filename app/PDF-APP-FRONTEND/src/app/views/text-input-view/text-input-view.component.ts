@@ -1,18 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-text-input',
-  templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.css']
+  selector: 'app-text-input-view',
+  templateUrl: './text-input-view.component.html',
+  styleUrls: ['./text-input-view.component.css']
 })
-export class TextInputComponent implements OnInit {
+export class TextInputViewComponent implements OnInit {
+
   options: {[key: string]: string[]} = {
     'wiki': ['Wiki', 'Random Wikipedia'],
     'pdf': ['PDF', 'PDF Upload'],
     'manual': ['Manual', 'Manual Input']
   };
-  @Input() mode: string;
+  mode: string;
   mode_default = 'manual';
 
   constructor(private route: ActivatedRoute, private router: Router) { }
@@ -33,10 +35,6 @@ export class TextInputComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.MODE = params['type'];
     })
-  }
-
-  onSetModel(type: string) {
-    this.mode = type;
   }
 
 }

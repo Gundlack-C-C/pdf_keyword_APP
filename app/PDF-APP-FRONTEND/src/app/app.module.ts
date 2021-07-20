@@ -10,11 +10,13 @@ import { WikiModule } from './wiki/wiki.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextInputComponent } from './views/text-input/text-input.component';
 import { PdfModule } from './pdf/pdf.module';
+import { TextInputViewComponent } from './views/text-input-view/text-input-view.component';
 
 @NgModule({
   declarations: [	
     AppComponent,
-    TextInputComponent
+    TextInputComponent,
+    TextInputViewComponent
   ],
   imports: [
     AppCommonModule,

@@ -15,7 +15,7 @@
 		"johnpapa.angular2",
 		"danwahlin.angular2-snippets",
 		"alexiv.vscode-angular2-files",
-		"ktriek.ng-bootstrap-snippets"
+		"ktriek.ng-bootstrap-snippets",
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install",
