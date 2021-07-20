@@ -1,8 +1,6 @@
-<p>
-  wiki works!
-</p>
 <div *ngIf="text; else emptytext">
   <app-text [text]="text"></app-text>
+  <app-keywords [keywords]="text.keywords"></app-keywords>
 </div>
 
 <ng-template #emptytext>
