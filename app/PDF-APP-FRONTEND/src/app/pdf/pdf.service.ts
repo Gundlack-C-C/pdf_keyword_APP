@@ -22,10 +22,8 @@ export class PdfService {
         formData.append('file', file)
         this.http.post<Text>(`${this.BE}/api/text`, formData).toPromise<Text>().then((data: any) => {
           let text = new Text()
-          text.text = {
-            'title': data['id'],
-            'short': data['text']
-          }
+          text.Title = data['id']
+          text.Short = data['text']
           resolve(text)
         }).catch((err) => {
           console.error(err)
