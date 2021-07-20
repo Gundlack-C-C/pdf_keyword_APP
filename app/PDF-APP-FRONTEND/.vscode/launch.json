@@ -17,6 +17,13 @@
             "name": "WIKI",
             "url": "http://127.0.0.1:4200/wiki",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "TEXT INPUT",
+            "url": "http://127.0.0.1:4200/text-input",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

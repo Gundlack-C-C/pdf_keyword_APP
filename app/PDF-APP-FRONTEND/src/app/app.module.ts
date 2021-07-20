@@ -8,11 +8,12 @@ import { AppComponent } from './app.component';
 import { AppCommonModule } from './commons/app.common.module';
 import { WikiModule } from './wiki/wiki.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TextInputComponent } from './views/text-input/text-input.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
-    
+    TextInputComponent
   ],
   imports: [
     AppCommonModule,
