@@ -1,6 +1,13 @@
-<div *ngIf="text; else emptytext">
-  <app-text [text]="text.text"></app-text>
-  <app-keywords [keywords]="text.keywords"></app-keywords>
+<div *ngIf="text; else emptytext" class="container">
+  <h3>Random Wikipedia Abstracts</h3>
+  <div>
+    <div class="mb-2">
+      <app-text [text]="text.text"></app-text>
+    </div>
+    <div>
+      <app-keywords [keywords]="text.keywords"></app-keywords>
+    </div>
+  </div>
 </div>
 
 <ng-template #emptytext>
