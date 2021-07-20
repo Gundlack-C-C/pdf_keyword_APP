@@ -1,6 +1,6 @@
-<div *ngIf="text; else emptytext" class="container">
+<div class="container">
   <h3>Random Wikipedia Abstracts</h3>
-  <div>
+  <div *ngIf="text; else emptytext">
     <div class="mb-2">
       <app-text [text]="text.text"></app-text>
     </div>

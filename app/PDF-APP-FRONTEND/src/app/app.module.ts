@@ -9,6 +9,7 @@ import { AppCommonModule } from './commons/app.common.module';
 import { WikiModule } from './wiki/wiki.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextInputComponent } from './views/text-input/text-input.component';
+import { PdfModule } from './pdf/pdf.module';
 
 @NgModule({
   declarations: [	
@@ -22,6 +23,7 @@ import { TextInputComponent } from './views/text-input/text-input.component';
     AppRoutingModule,
     HttpClientModule,
     WikiModule,
+    PdfModule,
     NgbModule
   ],
   bootstrap: [AppComponent],
