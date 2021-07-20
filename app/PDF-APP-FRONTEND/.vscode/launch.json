@@ -7,8 +7,15 @@
         {
             "type": "pwa-chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "HOME",
             "url": "http://127.0.0.1:4200",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "WIKI",
+            "url": "http://127.0.0.1:4200/wiki",
             "webRoot": "${workspaceFolder}"
         }
     ]
