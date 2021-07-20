@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Text } from '../models';
+
 @Component({
   selector: 'app-text',
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.css']
 })
 export class TextComponent implements OnInit {
-  @Input() text: Text;
+  @Input() text: {[key: string]: string};
   TITLE: string | null;
   SHORT: string | null;
   DESCRIPTION: string | null;
@@ -22,10 +22,10 @@ export class TextComponent implements OnInit {
   }
 
   private hasKey(key: string): boolean {
-    return Object.keys(this.text.text).includes(key)
+    return Object.keys(this.text).includes(key)
   }
 
   getField(key: string): string | null {
-    return this.hasKey(key) ? this.text.text[key] : null
+    return this.hasKey(key) ? this.text[key] : null
   }
 }
