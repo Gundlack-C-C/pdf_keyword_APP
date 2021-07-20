@@ -21,6 +21,7 @@ export class WikiService {
         this.http.get<Text>(`${this.BE}/random`).toPromise<Text>().then((data: Text) => {
           resolve(data)
         }).catch((err) => {
+          console.error(err)
           reject(err);
         });
       }
