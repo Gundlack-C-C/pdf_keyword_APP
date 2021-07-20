@@ -1,3 +1,13 @@
 <p>
   wiki works!
 </p>
+<div *ngIf="text; else emptytext">
+  <app-text [text]="text"></app-text>
+</div>
+
+<ng-template #emptytext>
+  <div>
+    Text is <b>NULL</b>
+  </div>
+</ng-template>
+

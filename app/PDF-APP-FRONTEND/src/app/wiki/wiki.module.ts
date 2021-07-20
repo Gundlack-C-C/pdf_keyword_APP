@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WikiComponent } from './wiki.component';
 import { WikiService } from './wiki.service';
+import { AppCommonModule } from '../commons/app.common.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    AppCommonModule
   ],
   declarations: [
     WikiComponent

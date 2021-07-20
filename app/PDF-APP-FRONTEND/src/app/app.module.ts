@@ -5,13 +5,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppCommonModule } from './commons/app.common.module';
 import { WikiModule } from './wiki/wiki.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    
   ],
   imports: [
+    AppCommonModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
