@@ -1,4 +1,5 @@
-export class Text {
-    text: string = ""
-    keywords: {[key: string]: string} = {}
+export class Text extends Object {
+    id: string = ""
+    text: {[key: string]: string} = {}
+    keywords: string[] = []
 }
