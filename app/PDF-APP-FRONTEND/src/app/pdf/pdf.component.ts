@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PdfService } from './pdf.service';
+import { Text } from '../commons/models';
 
 @Component({
   selector: 'app-pdf',
@@ -6,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pdf.component.css']
 })
 export class PdfComponent implements OnInit {
-  text: string
+  text: Text
   fileName: string
   fileSize: number
-  constructor() { }
+  constructor(private pdf_service: PdfService) { }
 
   ngOnInit() {
   }
@@ -21,6 +23,15 @@ export class PdfComponent implements OnInit {
       if(file) {
         this.fileName = file.name;
         this.fileSize = file.size;
+        
+        this.pdf_service.getText(file).then((data: Text | null) => {
+            if(data) {
+              this.text = data
+            } else {
+              console.error("Unable to get text from pdf!")
+            }
+        })
+
       }
     }
   } 

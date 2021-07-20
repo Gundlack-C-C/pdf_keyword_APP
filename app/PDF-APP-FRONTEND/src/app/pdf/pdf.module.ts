@@ -6,7 +6,8 @@ import { PdfService } from './pdf.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    AppCommonModule
   ],
   declarations: [
     PdfComponent
