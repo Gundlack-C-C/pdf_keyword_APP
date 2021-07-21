@@ -1,0 +1,30 @@
+<div class="form-row">
+  <div class="input-group col-12 mb-2">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="use_idf">Document Frequency</label>
+      <label class="input-group-text">Min</label>
+    </div>
+    <input class="form-control" type="number" id="min_df" name="min_df" [(ngModel)]="min_df" min=0 step="0.01" (change)="onInputChanged()">
+    <div class="input-group-prepend">
+      <label class="input-group-text">Max</label>
+    </div>
+    <input class="form-control" type="number" id="max_df" name="max_df" [(ngModel)]="max_df" min=0 step="0.01" (change)="onInputChanged()">
+  </div>
+  <div class="input-group col-12 mb-2">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="use_idf">NGram Range</label>
+    </div>
+    <input class="form-control" type="number" id="ngram_range_min" name="ngram_range_min" [(ngModel)]="ngram_range_min" min=1 (change)="onInputChanged()">
+    <input class="form-control" type="number" id="ngram_range_max" name="ngram_range_max" [(ngModel)]="ngram_range_max" min=1 (change)="onInputChanged()">
+  </div>
+  <div class="input-group col-12">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="max_feature">Maximal #Feature</label>
+    </div>
+    <input class="form-control" type="number" id="max_feature" name="max_feature" [(ngModel)]="max_feature" min=-1 (change)="onInputChanged()">
+  </div>
+  <div class="col-12 text-right">
+    <span class="badge badge-dark" [ngbTooltip]="Parameter | json">?</span>
+  </div>
+
+</div>

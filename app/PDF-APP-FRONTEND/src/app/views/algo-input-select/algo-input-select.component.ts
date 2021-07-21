@@ -38,5 +38,4 @@ export class AlgoInputSelectComponent implements OnInit {
       console.warn(`Unknown algo type: ${this.mode}!`);
     }
   }
-
 }

@@ -27,3 +27,7 @@ export class Text extends Object {
         this.text['description'] = val;
     }
 }
+
+export class Parameter extends Object {
+    parameter: {[key: string]: any} = {}
+}
