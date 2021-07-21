@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TextInputSelectComponent } from '../text-input-select/text-input-select.component';
 
 
 @Component({
@@ -9,15 +10,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TextInputViewComponent implements OnInit {
 
-  options: {[key: string]: string[]} = {
-    'wiki': ['Wiki', 'Random Wikipedia'],
-    'pdf': ['PDF', 'PDF Upload'],
-    'manual': ['Manual', 'Manual Input']
-  };
+  options: {[key: string]: string[]} = TextInputSelectComponent.options;
   mode: string;
   mode_default = 'manual';
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(protected route: ActivatedRoute,protected router: Router) { }
 
   set MODE(val: string | null) {
     if(val && Object.keys(this.options).includes(val))
@@ -33,8 +30,12 @@ export class TextInputViewComponent implements OnInit {
     this.MODE = val;
 
     this.route.params.subscribe((params) => {
-      this.MODE = params['type'];
+      this.MODE = val
     })
   }
 
+  onModeChanged(val: any) {
+    this.MODE = val
+    this.router.navigate(['../', val], { relativeTo: this.route });
+  }
 }
