@@ -1,5 +1,5 @@
-import { ClassMethod } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Text } from 'src/app/commons/models';
 
 @Component({
   selector: 'app-text-input-select',
@@ -14,23 +14,31 @@ export class TextInputSelectComponent implements OnInit {
   };
   static option_default = 'manual'
   @Input() mode: string;
-  @Output() onModeChanged = new EventEmitter<String | null>()
+  @Output() ModeChanged = new EventEmitter<String | null>()
+  @Output() TextChanged = new EventEmitter<Text | null>()
 
   get options(): {[key: string]: string[]} {
     return TextInputSelectComponent.options;
   }
 
   ngOnInit() {
-    if(!this.mode || Object.keys(TextInputSelectComponent.options).includes(this.mode))
-      console.warn(`Unkwon input type: ${this.mode}!`);
+    if(!this.mode) {
+      this.mode = Object.keys(this.options)[0]
+    }else if(Object.keys(this.options).includes(this.mode)) {
+      console.warn(`Unknown input type: ${this.mode}!`);
+    }
   }
 
   set MODE(val: string | null) {
-    if(val && Object.keys(TextInputSelectComponent.options).includes(val)){
+    if(val && Object.keys(this.options).includes(val)){
       this.mode = val;
-      this.onModeChanged.emit(val);
+      this.ModeChanged.emit(val);
     } else {
-      console.warn(`Unkwon input type: ${val}!`)
+      console.warn(`Unknown input type: ${val}!`)
     }
+  }
+
+  onTextChanged(val: any) {
+    this.TextChanged.emit(val)
   }
 }

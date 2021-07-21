@@ -19,13 +19,13 @@
 </div>
 <!--Definition of options-->
 <ng-template #wikiDOM>
-  <app-wiki></app-wiki>
+  <app-wiki (TextChanged)="onTextChanged($event)"></app-wiki>
 </ng-template>
 
 <ng-template #pdfDOM>
-  <app-pdf></app-pdf>
+  <app-pdf (TextChanged)="onTextChanged($event)"></app-pdf>
 </ng-template>
 
 <ng-template #manualDOM>
-  <app-text-input></app-text-input>
+  <app-text-input (TextChanged)="onTextChanged($event)"></app-text-input>
 </ng-template>
