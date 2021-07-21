@@ -24,6 +24,7 @@ export class AlgoInputSelectComponent implements OnInit {
   set MODE(val: string | null) {
     if(val && Object.keys(this.options).includes(val)) {
       this.mode = val
+      this.ModeChanged.emit(val)
     } else {
       console.warn(`Unknown algo type: ${val}! Redirecting to [${this.options}]`)
     }
