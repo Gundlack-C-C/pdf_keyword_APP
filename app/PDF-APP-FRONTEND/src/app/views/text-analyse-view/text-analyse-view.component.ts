@@ -49,19 +49,22 @@ export class TextAnalyseViewComponent extends TextInputViewComponent implements 
   // Text Input
   onModeChanged(val: any) {
     console.log("Input Type Changed " + val)
+    this.mode_input = val;
   }
 
   onTextChanged(val: any) {
-    this.text = val;
     console.log("Text Changed!")
+    this.text = val;
   }
 
   // Algorithm Input
   onAlgoChanged(val: any) {
     console.log("Algorithm Changed " + val)
+    this.mode_algo = val
   }
 
   onParameterChanged(val: any) {
     console.log("Parameter Changed!")
+    this.parameter = val
   }
 }

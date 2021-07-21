@@ -39,4 +39,8 @@ export class AlgoInputSelectComponent implements OnInit {
       console.warn(`Unknown algo type: ${this.mode}!`);
     }
   }
+
+  onParameterChanged(val: any) {
+    this.ParameterChanged.emit(val)
+  }
 }

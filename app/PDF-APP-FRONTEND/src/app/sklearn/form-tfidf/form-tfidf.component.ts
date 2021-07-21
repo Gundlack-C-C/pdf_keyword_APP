@@ -1,11 +1,11 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-form-tfidf',
   templateUrl: './form-tfidf.component.html',
   styleUrls: ['./form-tfidf.component.css']
 })
-export class FormTfidfComponent {
+export class FormTfidfComponent implements OnInit{
   
   @Output() ParameterChanged = new EventEmitter<{[key: string]: any}>();
   min_df = 1;
@@ -23,6 +23,10 @@ export class FormTfidfComponent {
     "max_feature": 512
   }
 
+  ngOnInit() {
+    this.ParameterChanged.emit(this.Parameter);
+  }
+
   get Parameter(): {[key: string]: any} {
     return {
       "ngram_range": [this.ngram_range_min, this.ngram_range_max],
@@ -33,6 +37,7 @@ export class FormTfidfComponent {
       "smooth_idf": this.smooth_idf,
     }
   }
+
   onInputChanged() {
     clearTimeout(this.T)
     this.T = window.setTimeout(() => {

@@ -21,8 +21,8 @@
 <!--Definition of options-->
 <ng-template #sklearnDOM let-mode='mode'>
   <ng-container [ngSwitch]="mode">
-    <app-form-tfidf *ngSwitchCase="'tfidf'"></app-form-tfidf>
-    <app-form-count *ngSwitchCase="'count'"></app-form-count>
+    <app-form-tfidf *ngSwitchCase="'tfidf'" (ParameterChanged)="onParameterChanged($event)"></app-form-tfidf>
+    <app-form-count *ngSwitchCase="'count'" (ParameterChanged)="onParameterChanged($event)"></app-form-count>
     <div *ngSwitchDefault>
       Unkown Mode {{mode}}
     </div>

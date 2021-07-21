@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-form-count',
   templateUrl: './form-count.component.html',
   styleUrls: ['./form-count.component.css']
 })
-export class FormCountComponent {
+export class FormCountComponent implements OnInit{
 
   @Output() ParameterChanged = new EventEmitter<{[key: string]: any}>();
   min_df = 1;
@@ -20,8 +20,10 @@ export class FormCountComponent {
     "max_df": "1.0",
     "max_feature": 512
   }
-
-  constructor() { }
+  
+  ngOnInit() {
+    this.ParameterChanged.emit(this.Parameter);
+  }
 
   get Parameter(): {[key: string]: any} {
     return {
@@ -31,6 +33,7 @@ export class FormCountComponent {
       "max_feature": this.max_feature
     }
   }
+
   onInputChanged() {
     clearTimeout(this.T)
     this.T = window.setTimeout(() => {
