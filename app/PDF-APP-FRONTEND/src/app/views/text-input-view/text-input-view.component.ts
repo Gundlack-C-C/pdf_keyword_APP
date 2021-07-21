@@ -38,4 +38,7 @@ export class TextInputViewComponent implements OnInit {
     this.MODE = val
     this.router.navigate(['../', val], { relativeTo: this.route });
   }
+
+  onTextChanged(val: any) {
+  }
 }

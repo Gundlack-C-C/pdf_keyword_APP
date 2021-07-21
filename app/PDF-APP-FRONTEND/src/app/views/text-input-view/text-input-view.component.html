@@ -3,5 +3,5 @@
     <h2>Text Input/Generation</h2>
     <p>Generate or Input text for the <b>N</b>atural <b>L</b>anguage <b>P</b>rocessing <b>P</b>layground</p>
   </div>
-  <app-text-input-select [mode]="mode" (onModeChanged)="onModeChanged($event)"></app-text-input-select>
+  <app-text-input-select [mode]="mode" (onModeChanged)="onModeChanged($event)" (TextChanged)="onTextChanged($event)"></app-text-input-select>
 </div>
