@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TextInputViewComponent } from './views/text-input-view/text-input-view.component';
-import { TextInputComponent } from './views/text-input/text-input.component';
 import { WikiComponent } from './wiki/wiki.component';
 
 const routes: Routes = [

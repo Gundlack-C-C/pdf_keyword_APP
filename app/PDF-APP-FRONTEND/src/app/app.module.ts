@@ -8,14 +8,14 @@ import { AppComponent } from './app.component';
 import { AppCommonModule } from './commons/app.common.module';
 import { WikiModule } from './wiki/wiki.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TextInputComponent } from './views/text-input/text-input.component';
 import { PdfModule } from './pdf/pdf.module';
 import { TextInputViewComponent } from './views/text-input-view/text-input-view.component';
+import { TextInputSelectComponent } from './views/text-input-select/text-input-select.component';
 
 @NgModule({
   declarations: [	
     AppComponent,
-    TextInputComponent,
+    TextInputSelectComponent,
     TextInputViewComponent
   ],
   imports: [

@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-text-input',
-  templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.css']
+  selector: 'app-text-input-select',
+  templateUrl: './text-input-select.component.html',
+  styleUrls: ['./text-input-select.component.css']
 })
-export class TextInputComponent implements OnInit {
+export class TextInputSelectComponent implements OnInit {
   options: {[key: string]: string[]} = {
     'wiki': ['Wiki', 'Random Wikipedia'],
     'pdf': ['PDF', 'PDF Upload'],

@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { PdfService } from './pdf.service';
 import { Text } from '../commons/models';
+import { TextInputComponent } from '../commons/text/text-input/text-input.component'
 
 @Component({
   selector: 'app-pdf',
   templateUrl: './pdf.component.html',
   styleUrls: ['./pdf.component.css']
 })
-export class PdfComponent implements OnInit {
-  text: Text
+export class PdfComponent extends TextInputComponent {
   fileName: string
   fileSize: number
-  constructor(private pdf_service: PdfService) { }
-
-  ngOnInit() {
+  
+  constructor(private pdf_service: PdfService) { 
+    super()
   }
 
   onFileSelected(event: Event) {
@@ -25,11 +25,9 @@ export class PdfComponent implements OnInit {
         this.fileSize = file.size;
         
         this.pdf_service.getText(file).then((data: Text | null) => {
-            if(data) {
-              this.text = data
-            } else {
-              console.error("Unable to get text from pdf!")
-            }
+          this.TEXT = data
+          if(!data)
+            console.error("Unable to get text from pdf!")
         })
 
       }
