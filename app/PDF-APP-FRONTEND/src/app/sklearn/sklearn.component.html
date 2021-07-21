@@ -1,3 +1,12 @@
-<p>
-  sklearn works!
-</p>
+<div class="container">
+  <div><h3>Text Analytics - Sklearn</h3>
+  </div>
+  <div *ngIf="text">
+    <div class="mb-2">
+      {{text | json}}
+    </div>
+    <div>
+      {{parameter | json}}
+    </div>
+  </div>
+</div>
