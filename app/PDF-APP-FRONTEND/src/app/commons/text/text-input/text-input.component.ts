@@ -10,18 +10,21 @@ let T = null
 export class TextInputComponent {
   text: Text | null = null
   T: any = null
-  @Output() newTextEvent = new EventEmitter<Text | null>();
+  @Output() TextChanged = new EventEmitter<Text | null>();
 
   set TEXT(val: Text | null) {
     this.text = val
-    this.newTextEvent.emit(val)
+    this.TextChanged.emit(val)
   }
 
   onTextSubmit($event: any) {
     clearTimeout(this.T)
     this.T = window.setTimeout(() => {
       const val = $event.target.value;
-      this.TEXT = val;
+      let text = new Text();
+      text.Description = val;
+      this.TEXT = text;
+      
     }, 1000)
   }
 }
