@@ -7,7 +7,7 @@
     <app-text-input-select [mode]="'wiki'" (ModeChanged)="onModeChanged($event)" (TextChanged)="onTextChanged($event)"></app-text-input-select>
   </div>
   <div *ngIf="text else SetTextInfo" class="mb-2">
-    <app-algo-input-select [mode]="'sklearn_count'"></app-algo-input-select>
+    <app-algo-input-select [mode]="'sklearn_count'" (ModeChanged)="onAlgoChanged($event)" (ParameterChanged)="onParameterChanged($event)"></app-algo-input-select>
   </div>  
 </div>
 

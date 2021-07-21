@@ -12,12 +12,16 @@ import { TextInputViewComponent } from '../text-input-view/text-input-view.compo
   styleUrls: ['./text-analyse-view.component.css']
 })
 export class TextAnalyseViewComponent extends TextInputViewComponent implements OnInit {
+  // Required form Algorithm execution
   text: Text | null = new TextSpec()
+  param: {[key: string]: any} = {}
 
+  // Text Input
   options_input: {[key: string]: string[]} = TextInputSelectComponent.options;
   mode_input: string;
   mode_input_default = 'manual';
 
+  // Algo Parameter Input
   options_algo: {[key: string]: string[]} = AlgoInputSelectComponent.options;
   mode_algo: string;
   mode_algo_default = 'sklearn_count';
@@ -42,6 +46,7 @@ export class TextAnalyseViewComponent extends TextInputViewComponent implements 
     })
   }
 
+  // Text Input
   onModeChanged(val: any) {
     console.log("Input Type Changed " + val)
   }
@@ -49,5 +54,14 @@ export class TextAnalyseViewComponent extends TextInputViewComponent implements 
   onTextChanged(val: any) {
     this.text = val;
     console.log("Text Changed!")
+  }
+
+  // Algorithm Input
+  onAlgoChanged(val: any) {
+    console.log("Algorithm Changed " + val)
+  }
+
+  onParameterChanged(val: any) {
+    console.log("Parameter Changed!")
   }
 }
