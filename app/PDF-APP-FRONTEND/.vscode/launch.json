@@ -24,6 +24,13 @@
             "name": "TEXT INPUT",
             "url": "http://127.0.0.1:4200/text-input",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "TEXT ANALYSE",
+            "url": "http://127.0.0.1:4200/text-analyse",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

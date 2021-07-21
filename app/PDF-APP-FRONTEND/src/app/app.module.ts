@@ -11,12 +11,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PdfModule } from './pdf/pdf.module';
 import { TextInputViewComponent } from './views/text-input-view/text-input-view.component';
 import { TextInputSelectComponent } from './views/text-input-select/text-input-select.component';
+import { TextAnalyseViewComponent } from './views/text-analyse-view/text-analyse-view.component';
+import { AlgoInputSelectComponent } from './views/algo-input-select/algo-input-select.component';
 
 @NgModule({
   declarations: [	
     AppComponent,
     TextInputSelectComponent,
-    TextInputViewComponent
+    TextInputViewComponent,
+    TextAnalyseViewComponent,
+    AlgoInputSelectComponent
   ],
   imports: [
     AppCommonModule,

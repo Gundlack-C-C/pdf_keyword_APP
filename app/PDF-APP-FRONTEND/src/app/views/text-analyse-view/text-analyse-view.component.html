@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="container mb-2">
+    <h2>Text Analytics</h2>
+    <p>Playground for Keywordanalytics!</p>
+  </div>
+  <div class="mb-2">
+    <app-text-input-select [mode]="'wiki'" (ModeChanged)="onModeChanged($event)" (TextChanged)="onTextChanged($event)"></app-text-input-select>
+  </div>
+  <div *ngIf="text else SetTextInfo" class="mb-2">
+    <app-algo-input-select [mode]="'sklearn_count'"></app-algo-input-select>
+  </div>  
+</div>
+
+<ng-template #SetTextInfo>
+  <div class="container">
+    <h2>Method Setup</h2>
+    <div>
+      Please provide text input first ...
+    </div>
+  </div>
+</ng-template>

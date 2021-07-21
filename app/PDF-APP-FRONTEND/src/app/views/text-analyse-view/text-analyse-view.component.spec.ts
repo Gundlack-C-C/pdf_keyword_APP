@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { TextAnalyseComponent } from './text-analyse.component';
+import { TextAnalyseViewComponent } from './text-analyse-view.component';
 
-describe('TextAnalyseComponent', () => {
-  let component: TextAnalyseComponent;
-  let fixture: ComponentFixture<TextAnalyseComponent>;
+describe('TextAnalyseViewComponent', () => {
+  let component: TextAnalyseViewComponent;
+  let fixture: ComponentFixture<TextAnalyseViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextAnalyseComponent ]
+      declarations: [ TextAnalyseViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TextAnalyseComponent);
+    fixture = TestBed.createComponent(TextAnalyseViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
