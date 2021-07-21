@@ -10,8 +10,8 @@
   <div class="card">
     <div class="card-body">
       <ng-container [ngSwitch]="mode">
-        <ng-container *ngSwitchCase="'sklearn_count'" [ngTemplateOutlet]="sklearnDOM"></ng-container>
-        <ng-container *ngSwitchCase="'sklearn_tfidf'" [ngTemplateOutlet]="sklearnDOM"></ng-container>
+        <ng-container *ngSwitchCase="'sklearn_count'" [ngTemplateOutlet]="sklearnDOM" [ngTemplateOutletContext]="{mode:'count'}"></ng-container>
+        <ng-container *ngSwitchCase="'sklearn_tfidf'" [ngTemplateOutlet]="sklearnDOM" [ngTemplateOutletContext]="{mode:'tfidf'}"></ng-container>
         <ng-container *ngSwitchCase="'transformers_bert'" [ngTemplateOutlet]="transformersDOM"></ng-container>
         <ng-container *ngSwitchCase="'transformers_distillbert'" [ngTemplateOutlet]="transformersDOM"></ng-container>
       </ng-container>
@@ -19,8 +19,14 @@
   </div>
 </div>
 <!--Definition of options-->
-<ng-template #sklearnDOM>
-  <app-form-tfidf></app-form-tfidf>
+<ng-template #sklearnDOM let-mode='mode'>
+  <ng-container [ngSwitch]="mode">
+    <app-form-tfidf *ngSwitchCase="'tfidf'"></app-form-tfidf>
+    <app-form-count *ngSwitchCase="'count'"></app-form-count>
+    <div *ngSwitchDefault>
+      Unkown Mode {{mode}}
+    </div>
+  </ng-container>
 </ng-template>
 
 <ng-template #transformersDOM>
