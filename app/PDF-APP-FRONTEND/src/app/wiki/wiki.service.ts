@@ -19,7 +19,7 @@ export class WikiService {
         resolve(new TextSpec())
       } else {
         this.http.get<Text>(`${this.BE}/random`).toPromise<Text>().then((data: Text) => {
-          resolve(data)
+          resolve(new Text(data.id, data.text, data.keywords))
         }).catch((err) => {
           console.error(err)
           reject(err);

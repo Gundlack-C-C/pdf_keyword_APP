@@ -21,10 +21,10 @@ export class TextInputComponent {
     clearTimeout(this.T)
     this.T = window.setTimeout(() => {
       const val = $event.target.value;
-      let text = new Text();
+      let text = new Text('manual-input', {}, []);
       text.Description = val;
+
       this.TEXT = text;
-      
     }, 1000)
   }
 }
