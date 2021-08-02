@@ -1,7 +1,7 @@
 <div class="container">
   <div><h3>Random Wikipedia Abstracts <button class="btn btn-primary btn-sm float-right" (click)="getRandom()">Random</button></h3>
   </div>
-  <div *ngIf="text; else emptytext">
+  <div *ngIf="text; else loading">
     <div class="mb-2">
       <app-text [text]="text.text"></app-text>
     </div>
@@ -11,10 +11,9 @@
   </div>
 </div>
 
-<ng-template #emptytext>
+<ng-template #loading>
   <div>
-    <span><div class="loader d-inline-block mr-1"></div>Loading ...
-    </span>
+    <span><div class="loader d-inline-block mr-1"></div>Loading ...</span>
   </div>
 </ng-template>
 
