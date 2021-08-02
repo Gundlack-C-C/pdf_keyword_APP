@@ -1,12 +1,15 @@
 <div class="container">
-  <div><h3>Text Analytics - Sklearn</h3>
+  <div>
+    <h3>Text Analytics - Sklearn</h3>
   </div>
-  <div *ngIf="text">
-    <div class="mb-2">
-      {{text | json}}
-    </div>
-    <div>
-      {{parameter | json}}
-    </div>
+  <div *ngIf="res else loading">
+    <h4>Results</h4>
+    <div>{{res | json}}</div>
   </div>
 </div>
+
+<ng-template #loading>
+  <div>
+    <span><div class="loader d-inline-block mr-1"></div>Analysing ...</span>
+  </div>
+</ng-template>
