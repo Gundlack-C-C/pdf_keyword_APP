@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TextSpec } from 'src/app/commons/models.spec';
 import { Text } from 'src/app/commons/models';
 import { AlgoInputSelectComponent } from '../algo-input-select/algo-input-select.component';
 import { TextInputSelectComponent } from '../text-input-select/text-input-select.component';
