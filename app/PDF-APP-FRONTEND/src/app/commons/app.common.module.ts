@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { KeywordsComponent } from './keywords/keywords.component';
 import { TextComponent } from './text/text.component';
 import { TextInputComponent } from './text/text-input/text-input.component';
+import { TextAnalyticsComponent } from './text-analytics/text-analytics.component';
+import { KeywordsBarComponent } from './keywords-bar/keywords-bar.component';
 
 
 @NgModule({
@@ -12,12 +14,15 @@ import { TextInputComponent } from './text/text-input/text-input.component';
   declarations: [
     TextComponent,
     KeywordsComponent,
-    TextInputComponent
+    TextInputComponent,
+    TextAnalyticsComponent,
+    KeywordsBarComponent
   ],
   exports: [
     TextComponent,
     TextInputComponent,
     KeywordsComponent,
+    TextAnalyticsComponent
   ]
 })
 export class AppCommonModule { }
