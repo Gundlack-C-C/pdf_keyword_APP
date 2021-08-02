@@ -3,6 +3,12 @@ export class Text extends Object {
     text: {[key: string]: string} = {};
     keywords: string[] = [];
 
+    constructor(id: string, text: {[key: string]: string}, keywords: string[]) {
+        super()
+        this.id = id;
+        this.text = text;
+        this.keywords = keywords
+    }
 
     get Title(): string {
         return this.text['title'];
