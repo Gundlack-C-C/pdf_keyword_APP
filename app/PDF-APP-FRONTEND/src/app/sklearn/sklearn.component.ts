@@ -13,6 +13,9 @@ export class SklearnComponent implements OnChanges {
   res: TextAnalytics[] | null = null
   constructor(private nlp: SklearnService) { }
 
+  get Sentences(): TextAnalytics[] {
+    return this.res ? this.res.filter((item, i) => i > 0) : [];
+  }
   ngOnChanges(changes: SimpleChanges) {
     if(changes['mode'] || changes['text'] || changes['parameter']) {
       this.res = null;

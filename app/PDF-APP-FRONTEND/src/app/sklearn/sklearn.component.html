@@ -9,15 +9,27 @@
         <app-text-analytics [analytics]="res[0]"></app-text-analytics>
       </div>
     </div>
+    <ngb-accordion>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <div>
+            <h5>Sentence Results</h5> 
+          </div>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <div class="row">
+            <div *ngFor="let item of Sentences;" class="col-6 pb-2 pr-2">
+              <div class="card">
+                <div class="card-body">
+                  <app-text-analytics [analytics]="item"></app-text-analytics>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
 
-    <h5>Sentence Results</h5>
-    <div *ngFor="let item of res; index as i">
-      <div *ngIf="i > 0" class="card">
-        <div class="card-body">
-          <app-text-analytics [analytics]="item"></app-text-analytics>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
