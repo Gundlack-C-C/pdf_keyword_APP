@@ -8,11 +8,14 @@ export class EnvService {
 constructor() { }
 
   get SERVICE_WIKI(): string {
-    return environment.services.wiki
+    return environment.services.wiki;
   }
 
   get SERVICE_PDF(): string {
-    return environment.services.pdf
+    return environment.services.pdf;
   }
 
+  get SERVICE_SKLEARN(): string {
+    return environment.services.sklearn;
+  }
 }

@@ -6,7 +6,9 @@ export const environment = {
   production: false,
   services: {
     wiki: 'http://localhost:5003',
-    pdf: 'http://localhost:5001'
+    pdf: 'http://localhost:5001',
+    sklearn: 'http://localhost:5001',
+    transformers: 'http://localhost:5001'
   }
 };
 
