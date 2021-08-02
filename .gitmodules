@@ -12,5 +12,5 @@
 	branch = main
 [submodule "NLP_SKLEARN"]
 	path = app/NLP_SKLEARN
-	url = git@github.com:GundlackFelixDEV/Matchmaker.git
+	url = git@github.com:Gundlack-C-C/Matchmaker.git
 	branch = develop
