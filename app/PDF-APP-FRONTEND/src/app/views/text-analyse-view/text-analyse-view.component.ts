@@ -13,8 +13,8 @@ import { TextInputViewComponent } from '../text-input-view/text-input-view.compo
 })
 export class TextAnalyseViewComponent extends TextInputViewComponent implements OnInit {
   // Required form Algorithm execution
-  text: Text | null = new TextSpec()
-  parameter: {[key: string]: any} = {}
+  text: Text | null = null;
+  parameter: {[key: string]: any} = {};
 
   // Text Input
   options_input: {[key: string]: string[]} = TextInputSelectComponent.options;
