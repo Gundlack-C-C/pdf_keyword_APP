@@ -3,15 +3,21 @@
     <h3>Text Analytics - Sklearn</h3>
   </div>
   <div *ngIf="res else loading">
-    <h4>Results</h4>
+    <h4>Fulltext Result</h4>
+    <div class="card">
+      <div class="card-body">
+        <app-text-analytics [analytics]="res[0]"></app-text-analytics>
+      </div>
+    </div>
+
+    <h5>Sentence Results</h5>
     <div *ngFor="let item of res; index as i">
-      <div class="card">
+      <div *ngIf="i > 0" class="card">
         <div class="card-body">
           <app-text-analytics [analytics]="item"></app-text-analytics>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 

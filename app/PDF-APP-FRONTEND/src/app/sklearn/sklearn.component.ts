@@ -16,7 +16,7 @@ export class SklearnComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if(changes['mode'] || changes['text'] || changes['parameter']) {
       this.res = null;
-      let corpus = [this.text.Title, this.text.Short, this.text.Description].join('. ');
+      let corpus = [this.text.Title, this.text.Short, this.text.Description].filter((text) => text && text != '').join('. ');
       this.nlp.getKeywords(this.mode, corpus, this.parameter).then((res: CorpusAnalytics) => {
       this.res = res.res;
       })
