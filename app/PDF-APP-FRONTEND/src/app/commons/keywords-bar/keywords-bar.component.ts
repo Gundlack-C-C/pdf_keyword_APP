@@ -24,9 +24,7 @@ export class KeywordsBarComponent implements OnInit {
   ngAfterViewInit(): void {
       //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
       //Add 'implements AfterViewInit' to the class.
-      window.setTimeout(()=>{
-        this.renderChart()
-      }, 100)
+      this.renderChart()
   }
   renderChart() {
     const id = this.id;
@@ -37,7 +35,6 @@ export class KeywordsBarComponent implements OnInit {
     const values: number[] = data.map((item: KeywordAnalytics) => {
         return item.score;
     })
-    console.log(`Render Chart for ${id}`);
 
     // set the dimensions and margins of the graph
     var margin = { top: 20, right: 30, bottom: 40, left: 90 },
