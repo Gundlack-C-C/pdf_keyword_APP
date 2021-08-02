@@ -9,10 +9,15 @@
   <div *ngIf="text else SetTextInfo" class="mb-2">
     <app-algo-input-select [mode]="'sklearn_count'" (ModeChanged)="onAlgoChanged($event)" (ParameterChanged)="onParameterChanged($event)"></app-algo-input-select>
   </div>
-  <div class="container">
+  <div *ngIf="text && parameter" class="container">
     <div class="card">
       <div class="card-body">
-        <app-sklearn *ngIf="text && parameter" [mode]='mode_algo' [parameter]='parameter' [text]='text'></app-sklearn>
+        <app-sklearn *ngIf="['sklearn_count', 'sklearn_tfidf'].includes(mode_algo) else Transformers" [mode]='mode_algo' [parameter]='parameter' [text]='text'></app-sklearn>
+        <ng-template #Transformers>
+          <div>
+            🚧 Not yet Implemented! 🚧
+          </div>
+        </ng-template>
       </div>
     </div>  
   </div>
@@ -26,3 +31,4 @@
     </div>
   </div>
 </ng-template>
+
