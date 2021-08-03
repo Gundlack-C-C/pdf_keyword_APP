@@ -1,62 +1,27 @@
-# Smart search
+# PDFAPPFRONTEND
 
-## **How to deploy the application**
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
 
-First, pull source code
+## Development server
 
-```
-git pull https://github.com/GundlackFelixDEV/pdf_keyword_APP.git
-```
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Then, pull the source of all the submodules.
-To do so, move in the folder of the project and execute these commands :
+## Code scaffolding
 
-```
-git submodule init
-git submodule update
-```
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Finally, we can launch the project thanks to the docker-compose command :
+## Build
 
-```
-docker-compose up -d
-```
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-The application is available on **localhost**.
+## Running unit tests
 
-## **APIs**
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Environments
-|API|Description|
-|--|--|
-|``/sklearn``| **NLP Service** using Sklearn e.g. Keyword Analytics, Text Similarity|
-|``/transformers``| **NLP Service** using Transformers e.g. Keyword Analytics, Text Similarity|
-|``/pdf`` | **PDF Service** e.g. Textextraction from PDF |
-|``/wiki`` | **WIKI Service** e.g. Random text from <a href="https://en.wikipedia.org/api/rest_v1/">Wikipedia API</a> |
+## Running end-to-end tests
 
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-### Endpoints
-#### ``/sklearn``
-| Method | API | Description|
-|--|--|--|
-|GET|``/keywords``| HTML with form to input text corpus |
-|POST|``/keywords``| Keyword analysis from text corpus |
+## Further help
 
-#### ``/transformers``
-| Method | API | Description|
-|--|--|--|
-*InWork*
-
-#### ``/pdf``
-| Method | API | Description|
-|--|--|--|
-|GET|``/``|Redirect to ``/upload``|
-|GET|``/upload``|HTML with form to upload PDF file|
-|POST|``/upload``|Save PDF on Server and redirect to ``/info/<name>``|
-|GET|``/info/<name>``|HTML with text from PDF|
-|GET|``/uploads/<name>``|Download pdf |
-
-#### ``/wiki``
-| Method | API | Description|
-|--|--|--|
-*InWork*
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

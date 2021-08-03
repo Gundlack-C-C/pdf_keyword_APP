@@ -1,39 +1,36 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
-            "type": "python",
+            "type": "pwa-chrome",
             "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/app"
+            "name": "HOME",
+            "url": "http://127.0.0.1:4200",
+            "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "Server",
-            "type": "python",
+            "type": "pwa-chrome",
             "request": "launch",
-            "program": "${workspaceFolder}/app/server.py",
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/app",
+            "name": "WIKI",
+            "url": "http://127.0.0.1:4200/wiki",
+            "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "App",
-            "type": "python",
+            "type": "pwa-chrome",
             "request": "launch",
-            "program": "${workspaceFolder}/app/app.py",
-            "console": "integratedTerminal",
-            "cwd": "${workspaceFolder}/app",
-            "args": [
-                "./.test_data/pdf2Text_TEST_HELLOWORLD.pdf",
-                "-o",
-                "./.test_out/pdf2text_test.txt",
-                "-l",
-                "./.test_out/pdf2text_test.log"
-            ]
+            "name": "TEXT INPUT",
+            "url": "http://127.0.0.1:4200/text-input",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "TEXT ANALYSE",
+            "url": "http://127.0.0.1:4200/text-analyse",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }
