@@ -45,7 +45,6 @@ services:
       - log-volume:/usr/src/app/.log
       - model-volume:/usr/src/app/.model
 networks:
-  frontend:
   backend:
 
 volumes:
