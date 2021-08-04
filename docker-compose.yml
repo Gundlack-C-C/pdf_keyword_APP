@@ -32,6 +32,18 @@ services:
       - backend
     volumes:
       - log-volume:/usr/src/app/.log
+  nlp-transformers:
+    image: v2202105148987153879.supersrv.de:30311/nlp-transformers-service:latest
+    container_name: nlp-transformers-service
+    ports:
+      - "5102:5001"
+    working_dir: /usr/src/app
+    command: bash -c "python3 app_preload_model.py --lang EN && python3 server.py --lang EN"
+    networks:
+      - backend
+    volumes:
+      - log-volume:/usr/src/app/.log
+      - model-volume:/usr/src/app/.model
 networks:
   frontend:
   backend:
@@ -43,3 +55,9 @@ volumes:
       o: bind
       type: none
       device: .log/
+  model-volume:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: .model/
