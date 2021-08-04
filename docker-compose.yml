@@ -1,67 +1,28 @@
 version: "3.9"
 
 services:
-  nginx:
-    image: nginx:1.13.7
-    container_name: proxy
-    ports:
-      - 80:80
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - frontend
-      - backend
-    links:
-      - app
-      - pdf
-      - wiki
-      - nlp-sklearn
-      - nlp-transformers
-  app:
-    build: ./
-    image: pdf2text/app
-    container_name: app
-    ports:
-      - "5000:5001"
-    links:
-      - pdf
-      - wiki
-      - nlp-sklearn
-      - nlp-transformers
-    networks:
-      - backend
-      - frontend
-    working_dir: /usr/src/app
-    command: python3 server.py
-    volumes:
-      - log-volume:/usr/src/app/.log
   pdf:
-    build: ./app/pdf2text/
-    image: pdf2text/pdfservice
+    image: v2202105148987153879.supersrv.de:30311/pdf-service:latest
     container_name: pdf-service
     ports:
       - "5001:5001"
     working_dir: /usr/src/app
-    command: python3 server.py
     networks:
       - backend
     volumes:
       - log-volume:/usr/src/app/.log
   wiki:
-    build: ./app/Wiki/
-    image: pdf2text/wiki
+    image: v2202105148987153879.supersrv.de:30311/wiki-service:latest
     container_name: wiki-service
     ports:
       - "5003:5001"
     working_dir: /usr/src/app
-    command: Server
     networks:
       - backend
     volumes:
       - log-volume:/usr/src/app/.log
   nlp-sklearn:
-    build: ./app/NLP_SKLEARN/
-    image: pdf2text/nlp-sklearn
+    image: v2202105148987153879.supersrv.de:30311/nlp-sklearn-service:latest
     container_name: nlp-sklearn-service
     ports:
       - "5101:5001"
@@ -71,19 +32,6 @@ services:
       - backend
     volumes:
       - log-volume:/usr/src/app/.log
-  nlp-transformers:
-    build: ./app/NLP_Embedding/
-    image: pdf2text/nlp-transformers
-    container_name: nlp-transformers-service
-    ports:
-      - "5102:5001"
-    working_dir: /usr/src/app
-    command: python3 server.py
-    networks:
-      - backend
-    volumes:
-      - log-volume:/usr/src/app/.log
-      - model-volume:/usr/src/app/.model
 networks:
   frontend:
   backend:
@@ -94,10 +42,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ./app/.log/
-  model-volume:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ./app/NLP_Embedding/.model/
+      device: .log/
