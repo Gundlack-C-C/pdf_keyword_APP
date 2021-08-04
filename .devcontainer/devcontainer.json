@@ -3,7 +3,7 @@
 {
 	"name": "Node.js & TypeScript",
 	"build": {
-		"dockerfile": "Dockerfile",
+		"dockerfile": "..",
 	},
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},

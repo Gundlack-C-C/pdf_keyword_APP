@@ -1,14 +1,19 @@
 version: "3.9"
 
 services:
+  app:
+    build: "."
+    image: pdf2text/app
+    container_name: app
+    ports:
+      - "80:80"
+    depends_on: [pdf, wiki, nlp-sklearn, nlp-transformers]
   pdf:
     image: v2202105148987153879.supersrv.de:30311/pdf-service:latest
     container_name: pdf-service
     ports:
       - "5001:5001"
     working_dir: /usr/src/app
-    networks:
-      - backend
     volumes:
       - log-volume:/usr/src/app/.log
   wiki:
@@ -17,8 +22,6 @@ services:
     ports:
       - "5003:5001"
     working_dir: /usr/src/app
-    networks:
-      - backend
     volumes:
       - log-volume:/usr/src/app/.log
   nlp-sklearn:
@@ -28,8 +31,6 @@ services:
       - "5101:5001"
     working_dir: /usr/src/app
     command: Server
-    networks:
-      - backend
     volumes:
       - log-volume:/usr/src/app/.log
   nlp-transformers:
@@ -39,13 +40,9 @@ services:
       - "5102:5001"
     working_dir: /usr/src/app
     command: bash -c "python3 app_preload_model.py --lang EN && python3 server.py --lang EN"
-    networks:
-      - backend
     volumes:
       - log-volume:/usr/src/app/.log
       - model-volume:/usr/src/app/.model
-networks:
-  backend:
 
 volumes:
   log-volume:
