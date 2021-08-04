@@ -6,20 +6,18 @@ import { EnvService } from '../env.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SklearnService {
+export class TransformersService {
   private BE: string;
   constructor(private env: EnvService, private http: HttpClient) { 
-    this.BE = this.env.SERVICE_SKLEARN;
+    this.BE = this.env.SERVICE_TRANSFORMERS;
   }
-
-  getKeywords(mode: string, text: string,  param: {[key: string]: any}): Promise<any | null> {
+  getKeywords(text: string,  param: {[key: string]: any}): Promise<any | null> {
     return new Promise<any>((resolve, reject) => {
       let data = {
         'text': text,
         'param': param
-      }
-      mode = mode.toLowerCase().includes('tfidf') ? "tfidf" : "count"; 
-      this.http.post<any>(`${this.BE}/api/keywords/${mode}`,  JSON.stringify(data)).toPromise<CorpusAnalytics>().then((response: any) => {
+      } 
+      this.http.post<any>(`${this.BE}/api/keywords`, JSON.stringify(data)).toPromise<CorpusAnalytics>().then((response: any) => {
         let data_result = new CorpusAnalytics()
         data_result.res = response['data'].map((item: any[]) => {
           let sentence = item[0]
@@ -35,4 +33,5 @@ export class SklearnService {
       });
     });
   }
+
 }

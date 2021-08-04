@@ -18,4 +18,8 @@ constructor() { }
   get SERVICE_SKLEARN(): string {
     return environment.services.sklearn;
   }
+
+  get SERVICE_TRANSFORMERS(): string {
+    return environment.services.transformers;
+  }
 }

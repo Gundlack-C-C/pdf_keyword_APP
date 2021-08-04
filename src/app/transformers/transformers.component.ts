@@ -1,13 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { CorpusAnalytics, Text, TextAnalytics} from '../commons/models';
-import { SklearnService } from './sklearn.service';
+import { TextAnalytics, Text, CorpusAnalytics } from '../commons/models';
+import { TransformersService } from './transformers.service';
+
 @Component({
-  selector: 'app-sklearn',
-  templateUrl: './sklearn.component.html',
-  styleUrls: ['./sklearn.component.css']
+  selector: 'app-transformers',
+  templateUrl: './transformers.component.html',
+  styleUrls: ['./transformers.component.css']
 })
-export class SklearnComponent implements OnChanges {
-  @Input() mode: string
+export class TransformersComponent implements OnChanges {
   @Input() parameter: {[key: string]: string}
   @Input() text: Text
   res: TextAnalytics[] | null = null
@@ -16,15 +16,16 @@ export class SklearnComponent implements OnChanges {
     return this.res ? this.res.filter((item, i) => i > 0) : [];
   }
 
-  constructor(private nlp: SklearnService) { }
+  constructor(private nlp: TransformersService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['mode'] || changes['text'] || changes['parameter']) {
+    if(changes['text'] || changes['parameter']) {
       this.res = null;
       let corpus = [this.text.Title, this.text.Short, this.text.Description].filter((text) => text && text != '').join('. ');
-      this.nlp.getKeywords(this.mode, corpus, this.parameter).then((res: CorpusAnalytics) => {
+      this.nlp.getKeywords(corpus, this.parameter).then((res: CorpusAnalytics) => {
       this.res = res.res;
       })
     }
   }
+
 }

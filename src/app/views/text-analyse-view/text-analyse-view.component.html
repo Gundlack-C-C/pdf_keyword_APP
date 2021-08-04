@@ -15,7 +15,7 @@
         <app-sklearn *ngIf="['sklearn_count', 'sklearn_tfidf'].includes(mode_algo) else Transformers" [mode]='mode_algo' [parameter]='parameter' [text]='text'></app-sklearn>
         <ng-template #Transformers>
           <div>
-            🚧 Not yet Implemented! 🚧
+            <app-transformers [parameter]='parameter' [text]='text'></app-transformers>
           </div>
         </ng-template>
       </div>

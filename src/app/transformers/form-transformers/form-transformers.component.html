@@ -1,0 +1,25 @@
+<div class="form-row">
+  <div class="input-group col-12 mb-2">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="use_idf">NGram Range</label>
+    </div>
+    <input class="form-control" type="number" id="ngram_range_min" name="ngram_range_min" [(ngModel)]="ngram_range_min" min=1 (change)="onInputChanged()">
+    <input class="form-control" type="number" id="ngram_range_max" name="ngram_range_max" [(ngModel)]="ngram_range_max" min=1 (change)="onInputChanged()">
+  </div>
+  <div class="input-group col-12">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="max_feature">Distance Measure</label>
+    </div>
+    <div>
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>{{metric_options[metric]}}</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button *ngFor="let item of Metric_Options | keyvalue" [value]="item.key" ngbDropdownItem (click)="metric = item.key; onInputChanged()">{{item.value}}</button>
+        </div>
+      </div>
+  </div>
+  <div class="col-12 text-right">
+    <span class="badge badge-dark" [ngbTooltip]="Parameter | json">?</span>
+  </div>
+
+</div>

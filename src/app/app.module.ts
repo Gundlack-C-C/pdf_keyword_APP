@@ -14,6 +14,7 @@ import { TextInputSelectComponent } from './views/text-input-select/text-input-s
 import { TextAnalyseViewComponent } from './views/text-analyse-view/text-analyse-view.component';
 import { AlgoInputSelectComponent } from './views/algo-input-select/algo-input-select.component';
 import { SklearnModule } from './sklearn/sklearn.module';
+import { TransformersModule } from './transformers/transformers.module';
 
 @NgModule({
   declarations: [	
@@ -32,6 +33,7 @@ import { SklearnModule } from './sklearn/sklearn.module';
     WikiModule,
     PdfModule,
     SklearnModule,
+    TransformersModule,
     NgbModule
   ],
   bootstrap: [AppComponent],
