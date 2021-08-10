@@ -6,7 +6,7 @@ import { TextInputViewComponent } from './views/text-input-view/text-input-view.
 import { WikiComponent } from './wiki/wiki.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  { path: '/', component: AppComponent },
   { path: 'wiki', component: WikiComponent },
   { path: 'text-input', redirectTo: '/text-input/manual', pathMatch: 'full' },
   { path: 'text-input/:type', component: TextInputViewComponent },

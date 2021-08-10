@@ -6,7 +6,8 @@ COPY ["package.json", "package-lock.json*", "./"]
 RUN npm install
 
 COPY . .
-RUN npm run build -- --base-href=/keyword-app
+
+RUN npm run build -- --base-href=/keyword-app/ --deploy-url=/keyword-app/
 
 FROM nginx:1.21.1-alpine
 
