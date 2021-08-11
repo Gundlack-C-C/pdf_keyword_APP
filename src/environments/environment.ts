@@ -8,7 +8,8 @@ export const environment = {
     wiki: 'http://localhost:5003',
     pdf: 'http://localhost:5001',
     sklearn: 'http://localhost:5101',
-    transformers: 'http://localhost:5102'
+    transformers: 'http://localhost:5102',
+    session: 'http://localhost:5103'
   }
 };
 
