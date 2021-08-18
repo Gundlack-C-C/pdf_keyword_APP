@@ -72,3 +72,10 @@ export class KeywordAnalytics extends Object {
         
     }
 }
+
+export class SessionInput extends Object {
+    input: {
+        text: string, 
+        param: Parameter
+    };
+}

@@ -27,7 +27,8 @@ export class FormCountComponent implements OnInit{
 
   get Parameter(): {[key: string]: any} {
     return {
-      "ngram_range": [this.ngram_range_min, this.ngram_range_max],
+      "ngram_range_min":this.ngram_range_min,
+      "ngram_range_max":this.ngram_range_max,
       "min_df": this.min_df,
       "max_df": this.max_df,
       "max_feature": this.max_feature

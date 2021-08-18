@@ -15,11 +15,7 @@ constructor() { }
     return environment.services.pdf;
   }
 
-  get SERVICE_SKLEARN(): string {
-    return environment.services.sklearn;
-  }
-
-  get SERVICE_TRANSFORMERS(): string {
-    return environment.services.transformers;
+  get SERVICE_SESSION(): string {
+    return environment.services.session;
   }
 }

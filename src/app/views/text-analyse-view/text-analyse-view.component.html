@@ -3,32 +3,12 @@
     <h2>Text Analytics</h2>
     <p>Playground for Keywordanalytics!</p>
   </div>
-  <div class="mb-2">
-    <app-text-input-select [mode]="'wiki'" (ModeChanged)="onModeChanged($event)" (TextChanged)="onTextChanged($event)"></app-text-input-select>
-  </div>
-  <div *ngIf="text else SetTextInfo" class="mb-2">
-    <app-algo-input-select [mode]="'sklearn_count'" (ModeChanged)="onAlgoChanged($event)" (ParameterChanged)="onParameterChanged($event)"></app-algo-input-select>
-  </div>
-  <div *ngIf="text && parameter" class="container">
-    <div class="card">
-      <div class="card-body">
-        <app-sklearn *ngIf="['sklearn_count', 'sklearn_tfidf'].includes(mode_algo) else Transformers" [mode]='mode_algo' [parameter]='parameter' [text]='text'></app-sklearn>
-        <ng-template #Transformers>
-          <div>
-            <app-transformers [parameter]='parameter' [text]='text'></app-transformers>
-          </div>
-        </ng-template>
-      </div>
-    </div>  
-  </div>
-</div>
-
-<ng-template #SetTextInfo>
-  <div class="container">
-    <h2>Method Setup</h2>
-    <div>
-      Please provide text input first ...
+    <div class="mb-2">
+      <app-text-input-select [mode]="'wiki'" (ModeChanged)="onModeChanged($event)" (TextChanged)="onTextChanged($event)"></app-text-input-select>
     </div>
-  </div>
-</ng-template>
-
+    <div *ngIf="text" class="mb-2">
+      <app-algo-input-select [mode]="'sklearn_count'" (ModeChanged)="onAlgoChanged($event)" (ParameterChanged)="onParameterChanged($event)"></app-algo-input-select>
+    </div>
+    <button (onClick)="onCreateSession()">Generate Session</button>
+  </form>
+</div>

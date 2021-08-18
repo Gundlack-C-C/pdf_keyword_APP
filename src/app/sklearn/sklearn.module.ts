@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SklearnComponent } from './sklearn.component';
 import { FormTfidfComponent } from './form-tfidf/form-tfidf.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -15,14 +14,12 @@ import { AppCommonModule } from '../commons/app.common.module';
     NgbModule
   ],
   declarations: [
-    SklearnComponent,
     FormTfidfComponent,
     FormCountComponent
   ],
   exports: [
     FormTfidfComponent,
-    FormCountComponent,
-    SklearnComponent
+    FormCountComponent
   ]
 })
 export class SklearnModule { }
