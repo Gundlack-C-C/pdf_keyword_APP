@@ -24,7 +24,8 @@ export class FormTransformersComponent implements OnInit {
   //Delay ParameterChanged Events
   T: any = null;
   static default: {[key: string]: any} = {
-    "ngram_range": [1, 1],
+    "ngram_range_min": 1,
+    "ngram_range_max": 1,
     "metric": 'l2'
   }
   get Metric_Options(): {[key: string]: string} {
@@ -32,7 +33,8 @@ export class FormTransformersComponent implements OnInit {
   }
   get Parameter(): {[key: string]: any} {
     return {
-      "ngram_range": [this.ngram_range_min, this.ngram_range_max],
+      "ngram_range_min": this.ngram_range_min,
+      "ngram_range_max": this.ngram_range_max,
       "metric": this.metric
     }
   }

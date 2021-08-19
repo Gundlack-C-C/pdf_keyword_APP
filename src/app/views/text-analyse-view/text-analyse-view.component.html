@@ -9,6 +9,5 @@
     <div *ngIf="text" class="mb-2">
       <app-algo-input-select [mode]="'sklearn_count'" (ModeChanged)="onAlgoChanged($event)" (ParameterChanged)="onParameterChanged($event)"></app-algo-input-select>
     </div>
-    <button (onClick)="onCreateSession()">Generate Session</button>
-  </form>
+    <button class="btn btn-primary btn-lg float-right" (click)="onCreateSession()">Get keywords</button>
 </div>

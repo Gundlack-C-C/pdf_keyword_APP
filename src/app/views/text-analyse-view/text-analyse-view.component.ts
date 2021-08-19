@@ -13,7 +13,7 @@ import { TextInputViewComponent } from '../text-input-view/text-input-view.compo
 })
 export class TextAnalyseViewComponent extends TextInputViewComponent implements OnInit {
   // Required form Algorithm execution
-  text: Text | null = null;
+  text: Text;
   parameter: {[key: string]: any} = {};
 
   // Text Input
@@ -41,16 +41,19 @@ export class TextAnalyseViewComponent extends TextInputViewComponent implements 
   }
 
   onCreateSession() {
-    console.log("You clicked")
-    const input: any = {
-      "input" : {
-        "text" : "My name is Thomas",
-        "param": this.parameter
-      },
-      "target" : this.mode_algo
+    var data = {
+      text: this.text.Short,
+      param: this.parameter,
+      target: this.mode_algo
     }
-    console.log(JSON.stringify(input))
-    this.sessionService.createSession(input);
+    this.sessionService.createSession(data)
+      .then((id: any) => {
+        // TODO: Do something with the id (redirect, display pop up...)
+        console.log(id)
+      })
+      .catch((err) => {
+        console.error(err)
+      })    
   }
 
   ngOnInit() {

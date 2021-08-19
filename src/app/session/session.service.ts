@@ -13,17 +13,26 @@ export class SessionService {
     this.BE = this.env.SERVICE_SESSION;
   }
 
-  createSession(payload: string): Promise<Text | null> {
-    return new Promise<Text | null>((resolve, reject) => {
-        this.http.post(`${this.BE}/session`, JSON.stringify(payload)).toPromise()
+  createSession(payload: any): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+        this.http.post(`${this.BE}/session`, JSON.stringify(this.formatOutput(payload))).toPromise()
         .then((data: any) => {
-          console.log(data)
           resolve(data)
         }).catch((err) => {
-          console.error(err)
           reject(err);
         });
       
     });
+  }
+
+  private formatOutput(payload: any) {
+    const selectedAlgo = payload.target.match("^.*?(?=_)")
+    return {
+      "input" : {
+        "text" : payload.text,
+        "param": payload.param
+      },
+      "target" : selectedAlgo[0]
+    }
   }
 }

@@ -19,7 +19,8 @@ export class FormTfidfComponent implements OnInit{
   //Delay ParameterChanged Events
   T: any = null;
   static default: {[key: string]: any} = {
-    "ngram_range": [1, 1],
+    "ngram_range_min": 1,
+    "ngram_range_max": 1,
     "min_df": 1,
     "max_df": "1.0",
     "max_feature": 512
@@ -31,7 +32,8 @@ export class FormTfidfComponent implements OnInit{
 
   get Parameter(): {[key: string]: any} {
     return {
-      "ngram_range": [this.ngram_range_min, this.ngram_range_max],
+      "ngram_range_min": this.ngram_range_min,
+      "ngram_range_max": this.ngram_range_max,
       "min_df": this.min_df,
       "max_df": this.max_df,
       "max_feature": this.max_feature,

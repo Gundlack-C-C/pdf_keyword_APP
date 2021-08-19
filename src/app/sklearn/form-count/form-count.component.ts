@@ -15,7 +15,8 @@ export class FormCountComponent implements OnInit{
   ngram_range_max = 1;
   T: any = null;
   static default: {[key: string]: any} = {
-    "ngram_range": [1, 1],
+    "ngram_range_min": 1,
+    "ngram_range_max": 1,
     "min_df": 1,
     "max_df": "1.0",
     "max_feature": 512
