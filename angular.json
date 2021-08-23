@@ -30,6 +30,7 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "baseHref": "/keyword-app",
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
