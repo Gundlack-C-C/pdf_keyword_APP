@@ -8,28 +8,28 @@
             "type": "pwa-chrome",
             "request": "launch",
             "name": "HOME",
-            "url": "http://127.0.0.1:4200",
+            "url": "http://127.0.0.1:4200/keyword-app",
             "webRoot": "${workspaceFolder}"
         },
         {
             "type": "pwa-chrome",
             "request": "launch",
             "name": "WIKI",
-            "url": "http://127.0.0.1:4200/wiki",
+            "url": "http://127.0.0.1:4200/keyword-app/wiki",
             "webRoot": "${workspaceFolder}"
         },
         {
             "type": "pwa-chrome",
             "request": "launch",
             "name": "TEXT INPUT",
-            "url": "http://127.0.0.1:4200/text-input",
+            "url": "http://127.0.0.1:4200/keyword-app/text-input",
             "webRoot": "${workspaceFolder}"
         },
         {
             "type": "pwa-chrome",
             "request": "launch",
             "name": "TEXT ANALYSE",
-            "url": "http://127.0.0.1:4200/text-analyse",
+            "url": "http://127.0.0.1:4200/keyword-app/text-analyse",
             "webRoot": "${workspaceFolder}"
         }
     ]
