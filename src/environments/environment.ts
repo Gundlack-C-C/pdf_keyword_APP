@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
   services: {
-    wiki: 'http://localhost:5003',
-    pdf: 'http://localhost:5001',
-    session: 'http://localhost:5103'
+    wiki: window["env"]["wikiUrl"] || "http://localhost:5003",
+    pdf: window["env"]["pdfUrl"] || "http://localhost:5001",
+    session: window["env"]["sessionUrl"] || "http://localhost:5103"
   }
 };
 
