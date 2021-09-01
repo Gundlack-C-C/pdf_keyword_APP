@@ -1,19 +1,19 @@
 <div class="container mb-2">
   <div ngbDropdown class="d-inline-block">
-    <button class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>{{options[mode].join(' - ')}}</button>
+    <button class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>{{options[target].join(' - ')}}</button>
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button *ngFor="let item of options | keyvalue" [value]="item.key" ngbDropdownItem (click)="MODE = item.key">{{item.value.join(' - ')}}</button>
+      <button *ngFor="let item of options | keyvalue" [value]="item.key" ngbDropdownItem (click)="TARGET = item.key">{{item.value.join(' - ')}}</button>
     </div>
   </div>
 </div>
 <div class="container">
   <div class="card">
     <div class="card-body">
-      <ng-container [ngSwitch]="mode">
+      <ng-container [ngSwitch]="target">
         <ng-container *ngSwitchCase="'sklearn_count'" [ngTemplateOutlet]="sklearnDOM" [ngTemplateOutletContext]="{mode:'count'}"></ng-container>
         <ng-container *ngSwitchCase="'sklearn_tfidf'" [ngTemplateOutlet]="sklearnDOM" [ngTemplateOutletContext]="{mode:'tfidf'}"></ng-container>
-        <ng-container *ngSwitchCase="'transformers_bert'" [ngTemplateOutlet]="transformersDOM"></ng-container>
-        <ng-container *ngSwitchCase="'transformers_distillbert'" [ngTemplateOutlet]="transformersDOM"></ng-container>
+        <ng-container *ngSwitchCase="'transformers_bert'" [ngTemplateOutlet]="transformersDOM" [ngTemplateOutletContext]="{mode:'bert'}"></ng-container>
+        <ng-container *ngSwitchCase="'transformers_distillbert'" [ngTemplateOutlet]="transformersDOM" [ngTemplateOutletContext]="{mode:'distillbert'}"></ng-container>
       </ng-container>
     </div>
   </div>
@@ -29,6 +29,6 @@
   </ng-container>
 </ng-template>
 
-<ng-template #transformersDOM>
+<ng-template #transformersDOM let-mode='mode'>
   <app-form-transformers (ParameterChanged)="onParameterChanged($event)"></app-form-transformers>
 </ng-template>

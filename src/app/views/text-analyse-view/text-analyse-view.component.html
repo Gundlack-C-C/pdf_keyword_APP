@@ -4,10 +4,19 @@
     <p>Playground for Keywordanalytics!</p>
   </div>
     <div class="mb-2">
-      <app-text-input-select [mode]="'wiki'" (ModeChanged)="onModeChanged($event)" (TextChanged)="onTextChanged($event)"></app-text-input-select>
+      <app-text-input-select [mode]="'wiki'" (ModeChanged)="onInputModeChanged($event)" (TextChanged)="onTextChanged($event)"></app-text-input-select>
     </div>
     <div *ngIf="text" class="mb-2">
-      <app-algo-input-select [mode]="'sklearn_count'" (ModeChanged)="onAlgoChanged($event)" (ParameterChanged)="onParameterChanged($event)"></app-algo-input-select>
+      <app-algo-input-select [target]="'sklearn_count'" (TargetChanged)="onTargetChanged($event)" (ParameterChanged)="onParameterChanged($event)"></app-algo-input-select>
     </div>
-    <button class="btn btn-primary btn-lg float-right" (click)="onCreateSession()">Get keywords</button>
+    <div class="container">
+      <div>
+        <button class="form-control btn btn-primary btn-lg float-right" (click)="onCreateSession()">Get keywords</button>
+      </div>
+    </div>
+    <div class="container">
+      <ul>
+        <li *ngFor="let id of sessionService.Sessions" >{{id}}</li>
+      </ul>
+    </div>
 </div>

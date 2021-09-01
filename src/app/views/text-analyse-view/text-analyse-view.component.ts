@@ -23,18 +23,22 @@ export class TextAnalyseViewComponent extends TextInputViewComponent implements 
 
   // Algo Parameter Input
   options_algo: {[key: string]: string[]} = AlgoInputSelectComponent.options;
+  target_algo_default = 'sklearn_count';
+  target_algo: string;
   mode_algo: string;
-  mode_algo_default = 'sklearn_count';
+  mode_algo_default = 'count';
+ 
 
-  constructor(protected route: ActivatedRoute,protected router: Router, protected sessionService: SessionService) { 
+  constructor(protected route: ActivatedRoute,protected router: Router, public sessionService: SessionService) { 
     super(route, router)
-    this.sessionService = sessionService
   }
 
-  set MODE_ALGO(val: string | null) {
-    if(val && Object.keys(this.options_algo).includes(val))
-      this.mode_algo = val;
-    else {
+  set TARGET_ALGO(val: string | null) {
+    if(val && Object.keys(this.options_algo).includes(val)) {
+      const target_config = this.options_algo[val]
+      this.target_algo = target_config[2];
+      this.mode_algo = target_config[3];
+    } else {
       console.warn(`Unkwon input type: ${val}! Redirecting to [${this.mode_algo_default}]`)
       this.router.navigate([`text-input`, this.mode_algo_default])
     }
@@ -42,9 +46,12 @@ export class TextAnalyseViewComponent extends TextInputViewComponent implements 
 
   onCreateSession() {
     var data = {
-      text: this.text.Short,
-      param: this.parameter,
-      target: this.mode_algo
+      target: this.target_algo,
+      input: {
+        text: this.text.Short,
+        mode: this.mode_algo,
+        param: this.parameter,
+      }
     }
     this.sessionService.createSession(data)
       .then((id: any) => {
@@ -53,18 +60,18 @@ export class TextAnalyseViewComponent extends TextInputViewComponent implements 
       })
       .catch((err) => {
         console.error(err)
-      })    
+      })
   }
 
   ngOnInit() {
-    this.MODE_ALGO = this.route.snapshot.paramMap.get('type-algo')
+    this.TARGET_ALGO = this.route.snapshot.paramMap.get('type-algo')
     this.route.params.subscribe((params) => {
-      this.MODE_ALGO = params['type-algo'];
+      this.TARGET_ALGO = params['type-algo'];
     })
   }
 
   // Text Input
-  onModeChanged(val: any) {
+  onInputModeChanged(val: any) {
     console.log("Input Type Changed " + val)
     this.mode_input = val;
   }
@@ -75,9 +82,9 @@ export class TextAnalyseViewComponent extends TextInputViewComponent implements 
   }
 
   // Algorithm Input
-  onAlgoChanged(val: any) {
+  onTargetChanged(val: any) {
     console.log("Algorithm Changed " + val)
-    this.mode_algo = val
+    this.TARGET_ALGO = val
   }
 
   onParameterChanged(val: any) {

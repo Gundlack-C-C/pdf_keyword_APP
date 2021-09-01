@@ -8,31 +8,27 @@ import { EnvService } from '../env.service';
 })
 export class SessionService {
 
-  private BE: string;
+  private BE: string = "";
+  public Sessions: string[] = [];
   constructor(private env: EnvService, private http: HttpClient) { 
     this.BE = this.env.SERVICE_SESSION;
   }
 
+  onSessionSuccess(id: string) {
+    this.Sessions.push(id)
+  }
+
   createSession(payload: any): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-        this.http.post(`${this.BE}/session`, JSON.stringify(this.formatOutput(payload))).toPromise()
-        .then((data: any) => {
-          resolve(data)
+        this.http.post(`${this.BE}/session`, payload).toPromise()
+        .then((id: any) => {
+          this.onSessionSuccess(id)
+          resolve(id);
         }).catch((err) => {
+          console.error(err.message)
           reject(err);
         });
       
     });
-  }
-
-  private formatOutput(payload: any) {
-    const selectedAlgo = payload.target.match("^.*?(?=_)")
-    return {
-      "input" : {
-        "text" : payload.text,
-        "param": payload.param
-      },
-      "target" : selectedAlgo[0]
-    }
   }
 }
